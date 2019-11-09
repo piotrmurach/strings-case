@@ -20,7 +20,6 @@ RSpec.describe Strings::Case, "#headercase" do
     "FOO_BAR_baz" => "Foo-Bar-Baz",
     "__FOO_BAR__" => "Foo-Bar",
     "Foo w1th apo's and punc]t" => "Foo-W1th-Apos-And-Punct",
-    "ЗдравствуйтеПривет" => "Здравствуйте-Привет",
     "getHTTPResponse" => "Get-Http-Response",
     "currencyISOCode" => "Currency-Iso-Code",
     "get2HTTPResponse" => "Get2-Http-Response",
@@ -31,6 +30,10 @@ RSpec.describe Strings::Case, "#headercase" do
     it "applies headercase to #{actual.inspect} -> #{expected.inspect}" do
       expect(Strings::Case.headercase(actual)).to eq(expected)
     end
+  end
+
+  it "supports unicode", if: modern_ruby? do
+    expect(Strings::Case.headercase("ЗдравствуйтеПривет")).to eq("Здравствуйте-Привет")
   end
 
   it "allows to preserve acronyms" do

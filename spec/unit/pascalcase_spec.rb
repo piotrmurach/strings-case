@@ -21,7 +21,6 @@ RSpec.describe Strings::Case, "#pascalcase" do
     "FOO_BAR_baz" => "FooBarBaz",
     "__FOO_BAR__" => "FooBar",
     "Foo w1th apo's and punc]t" => "FooW1thAposAndPunct",
-    "ЗдравствуйтеПривет" => "ЗдравствуйтеПривет",
     "getHTTPResponse" => "GetHttpResponse",
     "currencyISOCode" => "CurrencyIsoCode",
     "get2HTTPResponse" => "Get2HttpResponse",
@@ -32,6 +31,10 @@ RSpec.describe Strings::Case, "#pascalcase" do
     it "applies pascalcase to #{actual.inspect} -> #{expected.inspect}" do
       expect(Strings::Case.pascalcase(actual)).to eq(expected)
     end
+  end
+
+  it "supports unicode", if: modern_ruby? do
+    expect(Strings::Case.pascalcase("ЗдравствуйтеПривет")).to eq("ЗдравствуйтеПривет")
   end
 
   it "allows to preserve acronyms" do

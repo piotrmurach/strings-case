@@ -20,7 +20,6 @@ RSpec.describe Strings::Case, "#constcase" do
     "FOO_BAR_baz" => "FOO_BAR_BAZ",
     "__FOO_BAR__" => "_FOO_BAR_",
     "Foo w1th apo's and punc]t" => "FOO_W1TH_APOS_AND_PUNCT",
-    "ЗдравствуйтеПривет" => "ЗДРАВСТВУЙТЕ_ПРИВЕТ",
     "getHTTPResponse" => "GET_HTTP_RESPONSE",
     "currencyISOCode" => "CURRENCY_ISO_CODE",
     "get2HTTPResponse" => "GET2_HTTP_RESPONSE",
@@ -31,5 +30,9 @@ RSpec.describe Strings::Case, "#constcase" do
     it "applies constcase to #{actual.inspect} -> #{expected.inspect}" do
       expect(Strings::Case.constcase(actual)).to eq(expected)
     end
+  end
+
+  it "supports unicode", if: modern_ruby? do
+    expect(Strings::Case.constantcase("ЗдравствуйтеПривет")).to eq("ЗДРАВСТВУЙТЕ_ПРИВЕТ")
   end
 end

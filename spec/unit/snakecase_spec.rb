@@ -21,7 +21,6 @@ RSpec.describe Strings::Case, "#snakecase" do
     "FOO_BAR_baz" => "foo_bar_baz",
     "__FOO_BAR__" => "_foo_bar_",
     "Foo w1th apo's and punc]t" => "foo_w1th_apos_and_punct",
-    "ЗдравствуйтеПривет" => "здравствуйте_привет",
     "getHTTPResponse" => "get_http_response",
     "currencyISOCode" => "currency_iso_code",
     "get2HTTPResponse" => "get2_http_response",
@@ -32,6 +31,10 @@ RSpec.describe Strings::Case, "#snakecase" do
     it "applies snakecase to #{actual.inspect} -> #{expected.inspect}" do
       expect(Strings::Case.snakecase(actual)).to eq(expected)
     end
+  end
+
+  it "supports unicode", if: modern_ruby? do
+    expect(Strings::Case.snakecase("ЗдравствуйтеПривет")).to eq("здравствуйте_привет")
   end
 
   it "allows to preserve acronyms" do

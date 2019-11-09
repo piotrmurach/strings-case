@@ -21,7 +21,6 @@ RSpec.describe Strings::Case, "#camelcase" do
     "FOO_BAR_baz" => "fooBarBaz",
     "__FOO_BAR__" => "fooBar",
     "Foo w1th apo's and punc]t" => "fooW1thAposAndPunct",
-    "ЗдравствуйтеПривет" => "здравствуйтеПривет",
     "getHTTPResponse" => "getHttpResponse",
     "currencyISOCode" => "currencyIsoCode",
     "get2HTTPResponse" => "get2HttpResponse",
@@ -32,6 +31,10 @@ RSpec.describe Strings::Case, "#camelcase" do
     it "applies camelcase to #{actual.inspect} -> #{expected.inspect}" do
       expect(Strings::Case.camelcase(actual)).to eq(expected)
     end
+  end
+
+  it "supports unicode", if: modern_ruby? do
+    expect(Strings::Case.camelcase("ЗдравствуйтеПривет")).to eq("здравствуйтеПривет")
   end
 
   it "allows to preserve acronyms" do
