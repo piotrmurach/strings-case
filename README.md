@@ -38,9 +38,33 @@ Or install it yourself as:
 
     $ gem install strings-case
 
+
+## Features
+
+* No monkey-patching String class
+* Converts any string to specified case
+* Supports Unicode characters
+
 ## Usage
 
-TODO: Write usage instructions here
+The `Strings::Case` is a module with functions that can be invoked directly:
+
+```ruby
+Strings::Case.snakecase("foo bar baz")
+# => "foo_bar_baz"
+````
+
+## Case Types
+
+| Case Type | Example |
+| --------- | ------- |
+|  A string | `foo bar baz` |
+| ```Strings::Case.camelcase``` | `fooBarBaz` |
+| ```Strings::Case.constcase``` | `FOO_BAR_BAZ` |
+| ```Strings::Case.headercase``` | `Foo-Bar-Baz` |
+| ```Strings::Case.kebabcase|dash_case``` | `foo-bar-baz` |
+| ```Strings::Case.pascalcase``` | `FooBarBaz` |
+| ```Strings::Case.snakecase``` | `foo_bar_baz` |
 
 ## Development
 
