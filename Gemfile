@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gemspec
 
 group :test do
+  gem "activesupport"
   gem "benchmark-ips", "~> 2.7.2"
   gem "simplecov", "~> 0.16.1"
   gem "coveralls", "~> 0.8.22"
