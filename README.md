@@ -45,7 +45,19 @@ Or install it yourself as:
 * Converts any string to specified case
 * Supports Unicode characters
 
-## Usage
+## Contents
+
+* [1. Usage](#1-usage)
+* [2. API](#2-api)
+  * [2.1 Case Types Summary](#21-case-types-summary)
+  * [2.2 camelcase](#22-camelcase)
+  * [2.3 constcase](#23-constcase)
+  * [2.4 headercase](#24-headercase)
+  * [2.5 kebabcase|dashcase](#25-kebabcase-dashcase)
+  * [2.6 pascalcase](#26-pascalcase)
+  * [2.7 snakecase](#27-snakecase)
+
+## 1. Usage
 
 The `Strings::Case` is a module with functions that can be invoked directly:
 
@@ -54,17 +66,30 @@ Strings::Case.snakecase("foo bar baz")
 # => "foo_bar_baz"
 ````
 
-## Case Types
+## 2. API
 
-| Case Type | Example |
+### 2.1 Case Types Summary
+
+| Case Type | Result |
 | --------- | ------- |
-|  A string | `foo bar baz` |
-| ```Strings::Case.camelcase``` | `fooBarBaz` |
-| ```Strings::Case.constcase``` | `FOO_BAR_BAZ` |
-| ```Strings::Case.headercase``` | `Foo-Bar-Baz` |
-| ```Strings::Case.kebabcase|dash_case``` | `foo-bar-baz` |
-| ```Strings::Case.pascalcase``` | `FooBarBaz` |
-| ```Strings::Case.snakecase``` | `foo_bar_baz` |
+| ```Strings::Case.camelcase("foo bar baz")``` | `"fooBarBaz"` |
+| ```Strings::Case.constcase("foo bar baz")``` | `FOO_BAR_BAZ` |
+| ```Strings::Case.headercase("foo bar baz")``` | `Foo-Bar-Baz` |
+| ```Strings::Case.kebabcase("foo bar baz")``` | `foo-bar-baz` |
+| ```Strings::Case.pascalcase("foo bar baz")``` | `FooBarBaz` |
+| ```Strings::Case.snakecase("foo bar baz")``` | `foo_bar_baz` |
+
+### 2.2 camelcase
+
+### 2.3 constcase
+
+### 2.4 headercase
+
+### 2.5 kebabcase|dashcase
+
+### 2.6 pascalcase
+
+### 2.7 snakecase
 
 ## Development
 
