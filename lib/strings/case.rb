@@ -32,6 +32,11 @@ module Strings
     # @example
     #   camelcase("foo bar baz") # => "fooBarBaz"
     #
+    # @param [String] string
+    #   the string to camelcase
+    # @param [String] sep
+    #   the separator for linking words, by default none
+    #
     # @api public
     def camelcase(string, acronyms: [], sep: "")
       res = parsecase(string, acronyms: acronyms, sep: sep, casing: :capitalize)
@@ -49,6 +54,63 @@ module Strings
 
     alias lower_camelcase camelcase
     module_function :lower_camelcase
+
+    # Converts string to a constant
+    #
+    # @example
+    #   constantcase("foo bar baz") # => "FOO_BAR_BAZ"
+    #
+    # @param [String] string
+    #   the string to turn into constant
+    # @param [String] sep
+    #   the words separator, by default "_"
+    #
+    # @api public
+    def constcase(string, sep: "_")
+      parsecase(string, sep: sep, casing: :upcase)
+    end
+    module_function :constcase
+
+    alias constantcase constcase
+    module_function :constantcase
+
+    # Convert string to a HTTP Header
+    #
+    # @example
+    #   headercase("foo bar baz") # = "Foo-Bar-Baz"
+    #
+    # @param [String] string
+    #   the string to turn into header
+    # @param [String] sep
+    #   the words separator, by default "-"
+    #
+    # @api public
+    def headercase(string, acronyms: [], sep: "-")
+      parsecase(string, acronyms: acronyms, sep: sep, casing: :capitalize)
+    end
+    module_function :headercase
+
+    # Converts string to lower case words linked by hyphenes
+    #
+    # @example
+    #   kebabcase("fooBarBaz") # => "foo-bar-baz"
+    #
+    #   kebabcase("__FOO_BAR__") # => "foo-bar"
+    #
+    # @param [String] string
+    # @param [String] sep
+    #   the separator for linking words, by default hyphen
+    #
+    # @return [String]
+    #
+    # @api public
+    def kebabcase(string, acronyms: [], sep: "-")
+      parsecase(string, acronyms: acronyms, sep: sep)
+    end
+    module_function :kebabcase
+
+    alias dashcase kebabcase
+    module_function :dashcase
 
     # Convert string to pascal case:
     # * every word has its first character uppercased
