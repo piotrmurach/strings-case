@@ -149,6 +149,20 @@ module Strings
     alias underscore snakecase
     module_function :underscore
 
+    # Convert string into a title case
+    #
+    # @example
+    #   titlecase("foo bar baz") # => "Foo Bar Baz"
+    #
+    # @param [String] string
+    # @param [Array[String]] acronyms
+    #
+    # @api public
+    def titlecase(string, acronyms: [], sep: " ")
+      parsecase(string, acronyms: acronyms, sep: sep, casing: :capitalize)
+    end
+    module_function :titlecase
+
     # Parse string and transform to desired case
     #
     # @api private
