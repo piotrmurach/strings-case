@@ -55,7 +55,7 @@ Or install it yourself as:
   * [2.4 kebabcase | dashcase](#24-kebabcase--dashcase)
   * [2.5 pascalcase](#25-pascalcase)
   * [2.6 pathcase](#26-pathcase)
-  * [2.7 sentencecase](#27-snakecase)
+  * [2.7 sentencecase](#27-sentencecase)
   * [2.8 snakecase](#28-snakecase)
   * [2.9 titlecase](#29-titlecase)
 
@@ -78,6 +78,7 @@ Here is a quick summary of available transformations:
 | ```Strings::Case.kebabcase("foo bar baz")``` | `"foo-bar-baz"` |
 | ```Strings::Case.pascalcase("foo bar baz")``` | `"FooBarBaz"` |
 | ```Strings::Case.pathcase("foo bar baz")``` | `"foo/bar/baz"` |
+| ```Strings::Case.sentencecase("foo bar baz")``` | `"Foo bar baz"` |
 | ```Strings::Case.snakecase("foo bar baz")``` | `"foo_bar_baz"` |
 | ```Strings::Case.titlecase("foo bar baz")``` | `"Foo Bar Baz"` |
 
