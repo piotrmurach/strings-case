@@ -49,26 +49,24 @@ Or install it yourself as:
 
 * [1. Usage](#1-usage)
 * [2. API](#2-api)
-  * [2.1 Case Types Summary](#21-case-types-summary)
-  * [2.2 camelcase](#22-camelcase)
-  * [2.3 constcase](#23-constcase)
-  * [2.4 headercase](#24-headercase)
-  * [2.5 kebabcase|dashcase](#25-kebabcase-dashcase)
-  * [2.6 pascalcase](#26-pascalcase)
-  * [2.7 snakecase](#27-snakecase)
+  * [2.1 camelcase](#21-camelcase)
+  * [2.2 constcase](#22-constcase)
+  * [2.3 headercase](#23-headercase)
+  * [2.4 kebabcase | dashcase](#24-kebabcase-dashcase)
+  * [2.5 pascalcase](#25-pascalcase)
+  * [2.6 snakecase](#26-snakecase)
+  * [2.7 titlecase](#27-titlecase)
 
 ## 1. Usage
 
-The `Strings::Case` is a module with functions that can be invoked directly:
+The `Strings::Case` is a module with functions for transforming between string cases:
 
 ```ruby
 Strings::Case.snakecase("foo bar baz")
 # => "foo_bar_baz"
 ````
 
-## 2. API
-
-### 2.1 Case Types Summary
+Here is a quick summary of available transformations:
 
 | Case Type | Result |
 | --------- | ------- |
@@ -78,18 +76,37 @@ Strings::Case.snakecase("foo bar baz")
 | ```Strings::Case.kebabcase("foo bar baz")``` | `foo-bar-baz` |
 | ```Strings::Case.pascalcase("foo bar baz")``` | `FooBarBaz` |
 | ```Strings::Case.snakecase("foo bar baz")``` | `foo_bar_baz` |
+| ```Strings::Case.titlecase("foo bar baz")``` | `Foo Bar Baz` |
 
-### 2.2 camelcase
+## 2. API
 
-### 2.3 constcase
+### 2.1 camelcase
 
-### 2.4 headercase
+### 2.2 constcase
 
-### 2.5 kebabcase|dashcase
+### 2.3 headercase
 
-### 2.6 pascalcase
+### 2.4 kebabcase | dashcase
 
-### 2.7 snakecase
+### 2.5 pascalcase
+
+### 2.6 snakecase
+
+### 2.7 titlecase
+
+To convert a string into a space delimited words that have their first letter capitalized. For example:
+
+```ruby
+Strings::Case.titlecase("HTTPResponseCode")
+# => "Http Response Code"
+```
+
+To preserve the `HTTP` acronym use the `:acronyms` option:
+
+```ruby
+Strings::Case.titlecase("HTTP response code", acronyms: ["HTTP"])
+# => "HTTP Response Code"
+```
 
 ## Development
 
