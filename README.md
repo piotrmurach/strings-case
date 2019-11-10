@@ -52,11 +52,12 @@ Or install it yourself as:
   * [2.1 camelcase](#21-camelcase)
   * [2.2 constcase](#22-constcase)
   * [2.3 headercase](#23-headercase)
-  * [2.4 kebabcase | dashcase](#24-kebabcase-dashcase)
+  * [2.4 kebabcase | dashcase](#24-kebabcase--dashcase)
   * [2.5 pascalcase](#25-pascalcase)
   * [2.6 pathcase](#26-pathcase)
-  * [2.7 snakecase](#27-snakecase)
-  * [2.8 titlecase](#28-titlecase)
+  * [2.7 sentencecase](#27-snakecase)
+  * [2.8 snakecase](#28-snakecase)
+  * [2.9 titlecase](#29-titlecase)
 
 ## 1. Usage
 
@@ -115,9 +116,25 @@ Strings::Case.pathcase("HTTP response code", sep: "\\")
 # => "http\response\code"
 ```
 
-### 2.7 snakecase
+### 2.7 `sentencecase`
 
-### 2.8 titlecase
+To turn a string into a sentence use `sentencecase`:
+
+```ruby
+Strings::Case.sentencecase("HTTP Response Code")
+# => "Http response code"
+```
+
+To preserve the `HTTP` acronym use the `:acronyms` option:
+
+```ruby
+Strings::Case.sentencecase("HTTP Response Code", acronyms: ["HTTP"])
+# => "HTTP response code"
+```
+
+### 2.8 `snakecase`
+
+### 2.9 `titlecase`
 
 To convert a string into a space delimited words that have their first letter capitalized use `titlecase`. For example:
 
