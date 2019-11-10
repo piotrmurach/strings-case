@@ -54,8 +54,9 @@ Or install it yourself as:
   * [2.3 headercase](#23-headercase)
   * [2.4 kebabcase | dashcase](#24-kebabcase-dashcase)
   * [2.5 pascalcase](#25-pascalcase)
-  * [2.6 snakecase](#26-snakecase)
-  * [2.7 titlecase](#27-titlecase)
+  * [2.6 pathcase](#26-pathcase)
+  * [2.7 snakecase](#27-snakecase)
+  * [2.8 titlecase](#28-titlecase)
 
 ## 1. Usage
 
@@ -70,13 +71,14 @@ Here is a quick summary of available transformations:
 
 | Case Type | Result |
 | --------- | ------- |
-| ```Strings::Case.camelcase("foo bar baz")``` | `"fooBarBaz"` |
-| ```Strings::Case.constcase("foo bar baz")``` | `FOO_BAR_BAZ` |
-| ```Strings::Case.headercase("foo bar baz")``` | `Foo-Bar-Baz` |
-| ```Strings::Case.kebabcase("foo bar baz")``` | `foo-bar-baz` |
-| ```Strings::Case.pascalcase("foo bar baz")``` | `FooBarBaz` |
-| ```Strings::Case.snakecase("foo bar baz")``` | `foo_bar_baz` |
-| ```Strings::Case.titlecase("foo bar baz")``` | `Foo Bar Baz` |
+| ```rubyStrings::Case.camelcase("foo bar baz")``` | `"fooBarBaz"` |
+| ```Strings::Case.constcase("foo bar baz")``` | `"FOO_BAR_BAZ"` |
+| ```Strings::Case.headercase("foo bar baz")``` | `"Foo-Bar-Baz"` |
+| ```Strings::Case.kebabcase("foo bar baz")``` | `"foo-bar-baz"` |
+| ```Strings::Case.pascalcase("foo bar baz")``` | `"FooBarBaz"` |
+| ```Strings::Case.pathcase("foo bar baz")``` | `"foo/bar/baz"` |
+| ```Strings::Case.snakecase("foo bar baz")``` | `"foo_bar_baz"` |
+| ```Strings::Case.titlecase("foo bar baz")``` | `"Foo Bar Baz"` |
 
 ## 2. API
 
@@ -90,11 +92,34 @@ Here is a quick summary of available transformations:
 
 ### 2.5 pascalcase
 
-### 2.6 snakecase
+### 2.6 pathcase
 
-### 2.7 titlecase
+To convert a string into a file path use `pathcase`:
 
-To convert a string into a space delimited words that have their first letter capitalized. For example:
+```ruby
+Strings::Case.pathcase("HTTP response code")
+# => "http/response/code"
+````
+
+To preserve the `HTTP` acronym use the `:acronyms` option:
+
+```ruby
+Strings::Case.pathcase("HTTP response code", acronyms: ["HTTP"])
+# => "HTTP/response/code"
+```
+
+By default the `/` is used as a path separator. To change this use a `:sep` option. For example, on Windows the file path separator is `\`:
+
+```ruby
+Strings::Case.pathcase("HTTP response code", sep: "\\")
+# => "http\response\code"
+```
+
+### 2.7 snakecase
+
+### 2.8 titlecase
+
+To convert a string into a space delimited words that have their first letter capitalized use `titlecase`. For example:
 
 ```ruby
 Strings::Case.titlecase("HTTPResponseCode")
