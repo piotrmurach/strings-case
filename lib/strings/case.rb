@@ -146,6 +146,9 @@ module Strings
     end
     module_function :snakecase
 
+    alias underscore snakecase
+    module_function :underscore
+
     # Parse string and transform to desired case
     #
     # @api private

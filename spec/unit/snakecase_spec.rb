@@ -38,7 +38,7 @@ RSpec.describe Strings::Case, "#snakecase" do
   end
 
   it "allows to preserve acronyms" do
-    snaked = Strings::Case.snakecase("HTTP response code", acronyms: ["HTTP"])
+    snaked = Strings::Case.underscore("HTTP response code", acronyms: ["HTTP"])
 
     expect(snaked).to eq("HTTP_response_code")
   end
