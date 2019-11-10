@@ -128,6 +128,21 @@ module Strings
     alias upper_camelcase pascalcase
     module_function :upper_camelcase
 
+    # Convert string into a file path.
+    #
+    # By default uses `/` as a path separator.
+    #
+    # @example
+    #   pathcase("foo bar baz") # => "foo/bar/baz"
+    #
+    #   pathcase("FooBarBaz") # => "foo/bar/baz"
+    #
+    # @api public
+    def pathcase(string, acronyms: [], sep: "/")
+      parsecase(string, acronyms: acronyms, sep: sep)
+    end
+    module_function :pathcase
+
     # Convert string into a snake_case
     #
     # @example
