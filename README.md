@@ -58,6 +58,7 @@ Or install it yourself as:
   * [2.7 sentencecase](#27-sentencecase)
   * [2.8 snakecase](#28-snakecase)
   * [2.9 titlecase](#29-titlecase)
+* [3. Extending String class](#3-extending-string-class)
 
 ## 1. Usage
 
@@ -151,6 +152,39 @@ Strings::Case.titlecase("HTTP response code", acronyms: ["HTTP"])
 # => "HTTP Response Code"
 ```
 
+## 3. Extending String class
+
+Though it is highly discouraged to pollute core Ruby classes, you can add the required methods to `String` class by using refinements.
+
+For example, if you wish to only extend strings with `wrap` method do:
+
+```ruby
+module MyStringExt
+  refine String do
+    def snakecase(*args)
+      Strings::Case.snakecase(self, *args)
+    end
+  end
+end
+```
+
+Then `snakecase` method will be available for any strings where refinement is applied:
+
+```ruby
+using MyStringExt
+
+"foo bar baz".snakecase
+# => "foo_bar_baz"
+```
+
+However, if you want to include all the **Strings::Case** methods, you can use provided extensions file:
+
+```ruby
+require "strings/case/extensions"
+
+using Strings::Case::Extensions
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -168,3 +202,7 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the Strings::Case project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/piotrmurach/strings-case/blob/master/CODE_OF_CONDUCT.md).
+
+## Copyright
+
+Copyright (c) 2019 Piotr Murach. See LICENSE for further details.
