@@ -143,6 +143,21 @@ module Strings
     end
     module_function :pathcase
 
+    # Convert string int a sentence
+    #
+    # @example
+    #   sentencecase("foo bar baz") # => "Foo bar baz"
+    #
+    # @api public
+    def sentencecase(string, acronyms: [], sep: " ")
+      res = parsecase(string, acronyms: acronyms, sep: sep, casing: :downcase)
+
+      return res if res.to_s.empty?
+
+      res[0].upcase + res[1..-1]
+    end
+    module_function :sentencecase
+
     # Convert string into a snake_case
     #
     # @example
