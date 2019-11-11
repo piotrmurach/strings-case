@@ -60,6 +60,8 @@ Or install it yourself as:
 * No monkey-patching String class
 * Converts any string to specified case
 * Supports Unicode characters
+* Provides many common case transformations
+* Allows to preserve casing of acronyms
 
 ## Contents
 
