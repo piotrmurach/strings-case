@@ -41,4 +41,10 @@ RSpec.describe Strings::Case, "#headercase" do
 
     expect(headered).to eq("HTTP-Response-Code")
   end
+
+  it "changes a separator to :" do
+    headered = Strings::Case.headercase("HTTP response code", separator: ":")
+
+    expect(headered).to eq("Http:Response:Code")
+  end
 end

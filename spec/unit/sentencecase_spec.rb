@@ -42,4 +42,10 @@ RSpec.describe Strings::Case, "#sentencecase" do
 
     expect(sentence).to eq("HTTP response code")
   end
+
+  it "changes a separator to :" do
+    sentence = Strings::Case.sentencecase("HTTP response code", separator: ":")
+
+    expect(sentence).to eq("Http:response:code")
+  end
 end

@@ -44,7 +44,7 @@ RSpec.describe Strings::Case, "#pathcase" do
   end
 
   it "changes file path separator" do
-    pathed = Strings::Case.pathcase("HTTP response code", sep: "\\")
+    pathed = Strings::Case.pathcase("HTTP response code", separator: "\\")
 
     expect(pathed).to eq("http\\response\\code")
   end

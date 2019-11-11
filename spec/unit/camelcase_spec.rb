@@ -42,4 +42,10 @@ RSpec.describe Strings::Case, "#camelcase" do
 
     expect(camelized).to eq("HTTPResponseCode")
   end
+
+  it "changes a separator to :" do
+    camelized = Strings::Case.camelcase("HTTP response code", separator: ":")
+
+    expect(camelized).to eq("http:Response:Code")
+  end
 end

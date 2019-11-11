@@ -34,12 +34,14 @@ module Strings
     #
     # @param [String] string
     #   the string to camelcase
-    # @param [String] sep
+    # @param [Array[String]] acronyms
+    #   the acronyms to use to prevent modifications
+    # @param [String] separator
     #   the separator for linking words, by default none
     #
     # @api public
-    def camelcase(string, acronyms: [], sep: "")
-      res = parsecase(string, acronyms: acronyms, sep: sep, casing: :capitalize)
+    def camelcase(string, acronyms: [], separator: "")
+      res = parsecase(string, acronyms: acronyms, sep: separator, casing: :capitalize)
 
       return res if res.to_s.empty?
 
@@ -62,12 +64,14 @@ module Strings
     #
     # @param [String] string
     #   the string to turn into constant
-    # @param [String] sep
+    # @param [Array[String]] acronyms
+    #   the acronyms to use to prevent modifications
+    # @param [String] separator
     #   the words separator, by default "_"
     #
     # @api public
-    def constcase(string, sep: "_")
-      parsecase(string, sep: sep, casing: :upcase)
+    def constcase(string, separator: "_")
+      parsecase(string, sep: separator, casing: :upcase)
     end
     module_function :constcase
 
@@ -81,12 +85,14 @@ module Strings
     #
     # @param [String] string
     #   the string to turn into header
-    # @param [String] sep
+    # @param [Array[String]] acronyms
+    #   the acronyms to use to prevent modifications
+    # @param [String] separator
     #   the words separator, by default "-"
     #
     # @api public
-    def headercase(string, acronyms: [], sep: "-")
-      parsecase(string, acronyms: acronyms, sep: sep, casing: :capitalize)
+    def headercase(string, acronyms: [], separator: "-")
+      parsecase(string, acronyms: acronyms, sep: separator, casing: :capitalize)
     end
     module_function :headercase
 
@@ -98,14 +104,17 @@ module Strings
     #   kebabcase("__FOO_BAR__") # => "foo-bar"
     #
     # @param [String] string
-    # @param [String] sep
+    #   the string to convert to dashed string
+    # @param [Array[String]] acronyms
+    #   the acronyms to use to prevent modifications
+    # @param [String] separator
     #   the separator for linking words, by default hyphen
     #
     # @return [String]
     #
     # @api public
-    def kebabcase(string, acronyms: [], sep: "-")
-      parsecase(string, acronyms: acronyms, sep: sep)
+    def kebabcase(string, acronyms: [], separator: "-")
+      parsecase(string, acronyms: acronyms, sep: separator)
     end
     module_function :kebabcase
 
@@ -119,9 +128,16 @@ module Strings
     # @example
     #   pascalcase("foo bar baz") # => "FooBarBaz"
     #
+    # @param [String] string
+    #   the string to convert to camel case with capital letter
+    # @param [Array[String]] acronyms
+    #   the acronyms to use to prevent modifications
+    # @param [String] separator
+    #   the separator for linking words, by default none
+    #
     # @api public
-    def pascalcase(string, acronyms: [], sep: "")
-      parsecase(string, acronyms: acronyms, sep: sep, casing: :capitalize)
+    def pascalcase(string, acronyms: [], separator: "")
+      parsecase(string, acronyms: acronyms, sep: separator, casing: :capitalize)
     end
     module_function :pascalcase
 
@@ -137,9 +153,16 @@ module Strings
     #
     #   pathcase("FooBarBaz") # => "foo/bar/baz"
     #
+    # @param [String] string
+    #   the string to convert to file path
+    # @param [Array[String]] acronyms
+    #   the acronyms to use to prevent modifications
+    # @param [String] separator
+    #   the separator for linking words, by default `/`
+    #
     # @api public
-    def pathcase(string, acronyms: [], sep: "/")
-      parsecase(string, acronyms: acronyms, sep: sep)
+    def pathcase(string, acronyms: [], separator: "/")
+      parsecase(string, acronyms: acronyms, sep: separator)
     end
     module_function :pathcase
 
@@ -148,9 +171,16 @@ module Strings
     # @example
     #   sentencecase("foo bar baz") # => "Foo bar baz"
     #
+    # @param [String] string
+    #   the string to convert to sentence
+    # @param [Array[String]] acronyms
+    #   the acronyms to use to prevent modifications
+    # @param [String] separator
+    #   the separator for linking words, by default a space
+    #
     # @api public
-    def sentencecase(string, acronyms: [], sep: " ")
-      res = parsecase(string, acronyms: acronyms, sep: sep, casing: :downcase)
+    def sentencecase(string, acronyms: [], separator: " ")
+      res = parsecase(string, acronyms: acronyms, sep: separator, casing: :downcase)
 
       return res if res.to_s.empty?
 
@@ -168,11 +198,15 @@ module Strings
     #   snakecase("HTTPResponse") # => "http_response"
     #
     # @param [String] string
+    #   the string to convert to snake case
     # @param [Array[String]] acronyms
+    #   the acronyms to use to prevent modifications
+    # @param [String] separator
+    #   the separator for linking words, by default `_`
     #
     # @api public
-    def snakecase(string, acronyms: [], sep: "_")
-      parsecase(string, acronyms: acronyms, sep: sep)
+    def snakecase(string, acronyms: [], separator: "_")
+      parsecase(string, acronyms: acronyms, sep: separator)
     end
     module_function :snakecase
 
@@ -185,11 +219,15 @@ module Strings
     #   titlecase("foo bar baz") # => "Foo Bar Baz"
     #
     # @param [String] string
+    #   the string to convert to title case
     # @param [Array[String]] acronyms
+    #   the acronyms to use to prevent modifications
+    # @param [String] separator
+    #   the separator for linking words, by default a space
     #
     # @api public
-    def titlecase(string, acronyms: [], sep: " ")
-      parsecase(string, acronyms: acronyms, sep: sep, casing: :capitalize)
+    def titlecase(string, acronyms: [], separator: " ")
+      parsecase(string, acronyms: acronyms, sep: separator, casing: :capitalize)
     end
     module_function :titlecase
 

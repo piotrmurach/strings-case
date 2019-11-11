@@ -35,4 +35,10 @@ RSpec.describe Strings::Case, "#constcase" do
   it "supports unicode", if: modern_ruby? do
     expect(Strings::Case.constantcase("ЗдравствуйтеПривет")).to eq("ЗДРАВСТВУЙТЕ_ПРИВЕТ")
   end
+
+  it "changes a separator to :" do
+    constant = Strings::Case.constcase("HTTP response code", separator: ":")
+
+    expect(constant).to eq("HTTP:RESPONSE:CODE")
+  end
 end

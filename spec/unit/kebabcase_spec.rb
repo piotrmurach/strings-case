@@ -39,4 +39,10 @@ RSpec.describe Strings::Case, "#kebabcase" do
 
     expect(dashed).to eq("HTTP-response-code")
   end
+
+  it "changes a separator to :" do
+    dashed = Strings::Case.kebabcase("HTTP response code", separator: ":")
+
+    expect(dashed).to eq("http:response:code")
+  end
 end
