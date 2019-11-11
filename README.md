@@ -34,7 +34,7 @@ ActiveSupport::Inflector.underscore("supports IPv6 on iOS?")
 In contrast, `Strings::Case` aims to be able to transform any string to expected case:
 
 ```ruby
-Strings::Case.snake_case("supports IPv6 on iOS?")
+Strings::Case.underscore("supports IPv6 on iOS?")
 # => "supports_ipv6_on_ios"
 ```
 
