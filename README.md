@@ -56,7 +56,7 @@ Or install it yourself as:
   * [2.5 pascalcase](#25-pascalcase)
   * [2.6 pathcase](#26-pathcase)
   * [2.7 sentencecase](#27-sentencecase)
-  * [2.8 snakecase](#28-snakecase)
+  * [2.8 snakecase | underscore](#28-snakecase--underscore)
   * [2.9 titlecase](#29-titlecase)
 * [3. Extending String class](#3-extending-string-class)
 
@@ -73,7 +73,7 @@ Here is a quick summary of available transformations:
 
 | Case Type | Result |
 | --------- | ------- |
-| ```rubyStrings::Case.camelcase("foo bar baz")``` | `"fooBarBaz"` |
+| ```Strings::Case.camelcase("foo bar baz")``` | `"fooBarBaz"` |
 | ```Strings::Case.constcase("foo bar baz")``` | `"FOO_BAR_BAZ"` |
 | ```Strings::Case.headercase("foo bar baz")``` | `"Foo-Bar-Baz"` |
 | ```Strings::Case.kebabcase("foo bar baz")``` | `"foo-bar-baz"` |
@@ -87,34 +87,97 @@ Here is a quick summary of available transformations:
 
 ### 2.1 camelcase
 
+To convert a string into a camel case, that is, a case with all the words capitilized apart from the first one and compouned together without any space use `camelase` method. For example:
+
+```ruby
+Strings::Case.camelcase("HTTP Response Code")
+# => "httpResponseCode"
+```
+
+To preserve the acronyms use the `:acronyms` option:
+
+```ruby
+Strings::Case.camelcase("HTTP Response Code", acronyms: ["HTTP"])
+# => "HTTPResponseCode"
+```
+
 ### 2.2 constcase
+
+To convert a string into a constant case, that is, a case with all the words uppercased and separated by underscore character use `constcase`. For example:
+
+```ruby
+Strings::Case.constcase("HTTP Response Code")
+# => "HTTP_RESPONSE_CODE"
+```
 
 ### 2.3 headercase
 
+To covert a string into a header case, that is, a case with all the words capitalized and separated by a hypen use `headercase`. For example:
+
+```ruby
+Strings::Case.headercase("HTTP Response Code")
+# => "Http-Response-Code"
+```
+
+To preserve the acronyms use the `:acronyms` option:
+
+```ruby
+Strings::Case.headercase("HTTP Response Code", acronyms: ["HTTP"])
+# => "HTTP-Response-Code"
+```
 ### 2.4 kebabcase | dashcase
 
+To convert a string into a kebab case, that is, a case with all the words lowercased and separted by a dash, like a words kebabab on a skewer, use `kebabcase` or `dashcase` methods. For example:
+
+```ruby
+Strings::Case.kebabcase("HTTP Response Code")
+# => "http-response-code"
+```
+
+To preserve the acronyms use the `:acronyms` option:
+
+```ruby
+Strings::Case.dashcase("HTTP Response Code", acronyms: ["HTTP"])
+
+expect(dashed).to eq("HTTP-response-code")
+```
+
 ### 2.5 pascalcase
+
+To convert a string into a pascal case, that is, a case with all the words capitilized and compounded together without a space, use `pascalcase` method. For example:
+
+```ruby
+Strings::Case.pascalcase("HTTP Response Code")
+# => "HttpResponseCode"
+```
+
+To preserve the acronyms use the `:acronyms` option:
+
+```ruby
+Strings::Case.pascalcase("HTTP Response Code")
+# => "HTTPResponseCode"
+```
 
 ### 2.6 pathcase
 
 To convert a string into a file path use `pathcase`:
 
 ```ruby
-Strings::Case.pathcase("HTTP response code")
+Strings::Case.pathcase("HTTP Response Code")
 # => "http/response/code"
 ````
 
-To preserve the `HTTP` acronym use the `:acronyms` option:
+To preserve the acronyms use the `:acronyms` option:
 
 ```ruby
-Strings::Case.pathcase("HTTP response code", acronyms: ["HTTP"])
+Strings::Case.pathcase("HTTP Response Code", acronyms: ["HTTP"])
 # => "HTTP/response/code"
 ```
 
 By default the `/` is used as a path separator. To change this use a `:sep` option. For example, on Windows the file path separator is `\`:
 
 ```ruby
-Strings::Case.pathcase("HTTP response code", sep: "\\")
+Strings::Case.pathcase("HTTP Response Code", sep: "\\")
 # => "http\response\code"
 ```
 
@@ -134,7 +197,21 @@ Strings::Case.sentencecase("HTTP Response Code", acronyms: ["HTTP"])
 # => "HTTP response code"
 ```
 
-### 2.8 `snakecase`
+### 2.8 `snakecase` | `underscore`
+
+To convert a string into a snake case by lowercasing all the characters and separating them with an `_` use `snakecase` or `underscore` methods. For example:
+
+```ruby
+Strings::Case.snakecase("HTTP Response Code")
+# => "http_response_code"
+```
+
+To preserve acronyms in your string use the `:acronyms` option. For example:
+
+```ruby
+Strings::Case.snakecase("HTTP Response Code", acronyms: ["HTTP"])
+# => "HTTP_response_code"
+```
 
 ### 2.9 `titlecase`
 
