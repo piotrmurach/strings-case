@@ -22,6 +22,22 @@
 
 **Strings::Case** provides string case conversions for [Strings](https://github.com/piotrmurach/strings) utilities.
 
+## Motivation
+
+Popular solutions that deal with transforming string cases work well in simple cases.(Sorry ;-) With more complex strings you may get unexpected results:
+
+```ruby
+ActiveSupport::Inflector.underscore("supports IPv6 on iOS?")
+# => "supports i_pv6 on i_os?"
+```
+
+In contrast, `Strings::Case` aims to be able to transform any string to expected case:
+
+```ruby
+Strings::Case.snake_case("supports IPv6 on iOS?")
+# => "supports_ipv6_on_ios"
+```
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -68,6 +84,20 @@ The `Strings::Case` is a module with functions for transforming between string c
 Strings::Case.snakecase("foo bar baz")
 # => "foo_bar_baz"
 ````
+
+It will transform any string into expected case:
+
+```ruby
+Strings::Case.snake_case("supports IPv6 on iOS?")
+# => "supports_ipv6_on_ios"
+```
+
+You can apply case transformations to Unicode characters:
+
+```ruby
+Strings::Case.snake_case("ЗдравствуйтеПривет")
+# => "здравствуйте_привет"
+```
 
 Here is a quick summary of available transformations:
 
