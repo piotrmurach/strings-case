@@ -10,7 +10,7 @@ RSpec.describe Strings::Case::Extensions do
   end
 
   it "camelcase a string with acronyms" do
-    expect("HTTP Response Case".lower_camelcase(acronyms: ["HTTP"])).to eq("HTTPResponseCase")
+    expect("HTTP Response Code".lower_camelcase(acronyms: ["HTTP"])).to eq("HTTPResponseCode")
   end
 
   it "constcase a string" do
@@ -22,7 +22,7 @@ RSpec.describe Strings::Case::Extensions do
   end
 
   it "headercases a string with acronyms" do
-    expect("HTTP Response Case".headercase(acronyms: ["HTTP"])).to eq("HTTP-Response-Case")
+    expect("HTTP Response Code".headercase(acronyms: ["HTTP"])).to eq("HTTP-Response-Code")
   end
 
   it "kebabcases a string" do
@@ -30,7 +30,7 @@ RSpec.describe Strings::Case::Extensions do
   end
 
   it "kebabcases a string with acronyms" do
-    expect("HTTP Response Case".dashcase(acronyms: ["HTTP"])).to eq("HTTP-response-case")
+    expect("HTTP Response Code".dashcase(acronyms: ["HTTP"])).to eq("HTTP-response-code")
   end
 
   it "pascalcases a string" do
@@ -38,7 +38,7 @@ RSpec.describe Strings::Case::Extensions do
   end
 
   it "pascalcases a string with acronyms" do
-    expect("HTTP Response Case".pascalcase(acronyms: ["HTTP"])).to eq("HTTPResponseCase")
+    expect("HTTP Response Code".pascalcase(acronyms: ["HTTP"])).to eq("HTTPResponseCode")
   end
 
   it "pathcases a string" do
@@ -46,7 +46,7 @@ RSpec.describe Strings::Case::Extensions do
   end
 
   it "pathcases a string with acronyms" do
-    expect("HTTP Response Case".pathcase(acronyms: ["HTTP"])).to eq("HTTP/response/case")
+    expect("HTTP Response Code".pathcase(acronyms: ["HTTP"])).to eq("HTTP/response/code")
   end
 
   it "sentencecases a string" do
@@ -54,7 +54,7 @@ RSpec.describe Strings::Case::Extensions do
   end
 
   it "sentencecases a string with acronyms" do
-    expect("HTTP Response Case".sentencecase(acronyms: ["HTTP"])).to eq("HTTP response case")
+    expect("HTTP Response Code".sentencecase(acronyms: ["HTTP"])).to eq("HTTP response code")
   end
 
   it "snakecases a string" do
@@ -62,7 +62,7 @@ RSpec.describe Strings::Case::Extensions do
   end
 
   it "snakecases a string with acronyms" do
-    expect("HTTP Response Case".underscore(acronyms: ["HTTP"])).to eq("HTTP_response_case")
+    expect("HTTP Response Code".underscore(acronyms: ["HTTP"])).to eq("HTTP_response_code")
   end
 
   it "titlecases a string" do
@@ -70,6 +70,6 @@ RSpec.describe Strings::Case::Extensions do
   end
 
   it "titlecase a string with acronyms" do
-    expect("HTTP Response Case".titlecase(acronyms: ["HTTP"])).to eq("HTTP Response Case")
+    expect("HTTP Response Code".titlecase(acronyms: ["HTTP"])).to eq("HTTP Response Code")
   end
 end
