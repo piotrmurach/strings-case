@@ -177,7 +177,7 @@ Strings::Case.pathcase("HTTP Response Code", acronyms: ["HTTP"])
 By default the `/` is used as a path separator. To change this use a `:sep` option. For example, on Windows the file path separator is `\`:
 
 ```ruby
-Strings::Case.pathcase("HTTP Response Code", sep: "\\")
+Strings::Case.pathcase("HTTP Response Code", separator: "\\")
 # => "http\response\code"
 ```
 
