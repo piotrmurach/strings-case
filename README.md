@@ -90,14 +90,14 @@ Strings::Case.snakecase("foo bar baz")
 It will transform any string into expected case:
 
 ```ruby
-Strings::Case.snake_case("supports IPv6 on iOS?")
+Strings::Case.snakecase("supports IPv6 on iOS?")
 # => "supports_ipv6_on_ios"
 ```
 
 You can apply case transformations to Unicode characters:
 
 ```ruby
-Strings::Case.snake_case("ЗдравствуйтеПривет")
+Strings::Case.snakecase("ЗдравствуйтеПривет")
 # => "здравствуйте_привет"
 ```
 
