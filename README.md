@@ -265,7 +265,7 @@ Strings::Case.titlecase("HTTP response code", acronyms: ["HTTP"])
 
 Though it is highly discouraged to pollute core Ruby classes, you can add the required methods to `String` class by using refinements.
 
-For example, if you wish to only extend strings with `wrap` method do:
+For example, if you wish to only extend strings with `snakecase` method do:
 
 ```ruby
 module MyStringExt
