@@ -11,12 +11,12 @@ RSpec.describe Strings::Case do
       Strings::Case.snakecase("fooBarBaz")
     }.to perform_slower_than {
       ActiveSupport::Inflector.underscore("fooBarBaz")
-    }.at_most(4).times
+    }.at_most(2).times
   end
 
   it "allocates no more than 100 objects" do
     expect {
       Strings::Case.snakecase("fooBarBaz")
-    }.to perform_allocation(42)
+    }.to perform_allocation(25)
   end
 end
