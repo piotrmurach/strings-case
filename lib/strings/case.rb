@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "strscan"
+
 require_relative "case/version"
 
 module Strings
@@ -8,9 +10,11 @@ module Strings
     UP_LETTERS = ("A".."Z").freeze
     DOWN_LETTERS = ("a".."z").freeze
     DELIMITERS = [" ", "\n", "\t", "_", ".", "-", "#", "?", "!"].freeze
+    DELIMS = Regexp.union(DELIMITERS)
     NONALPHANUMERIC = (32..127).map(&:chr) -
       (DIGITS.to_a + DOWN_LETTERS.to_a + UP_LETTERS.to_a + DELIMITERS)
-    UPCASE = /(?<!\p{Lu})\p{Lu}$/.freeze
+    NONALPHAS = Regexp.union(NONALPHANUMERIC)
+    UPPERCASE = /^(\p{Ll}|\p{Digit})\p{Lu}/.freeze
     LOWERCASE = /\p{Lu}(?=\p{Ll})/.freeze
 
     class Error < StandardError; end
@@ -258,41 +262,43 @@ module Strings
     def split_into_words(string, sep: nil)
       words = []
       word = []
-      last = string.length - 1
+      scanner = StringScanner.new(string)
 
-      string.each_char.with_index do |char, i|
-        combine = word[-1].to_s + char
-
-        if combine =~ UPCASE
+      while !scanner.eos?
+        if scanner.match?(UPPERCASE)
+          char = scanner.getch
+          if word.size <= 1 # don't allow single letter words
+            word << char
+          else
+            word << char
+            words << word.join
+            word = []
+          end
+        elsif scanner.match?(LOWERCASE)
+          char = scanner.getch
           if word.size <= 1 # don't allow single letter words
             word << char
           else
             words << word.join
             word = [char]
           end
-        elsif combine =~ LOWERCASE
-          letter = word.pop
-          if word.size <= 1 # don't allow single letter words
-            word << letter << char
-          else
-            words << word.join
-            word = [letter, char]
-          end
-        elsif DELIMITERS.include?(char)
+        elsif scanner.match?(DELIMS)
+          char = scanner.getch
           words << word.join unless word.empty?
-          if i.zero? && char == sep
+          if scanner.pos == 1 && char == sep
             words << ""
+          elsif scanner.eos? && char == sep
+            word = [""]
           else
             word = []
           end
-        elsif NONALPHANUMERIC.include?(char)
+        elsif scanner.skip(NONALPHAS)
           # noop
         else
-          word << char
+          word << scanner.getch
         end
 
-        if last == i
-          word = [""] if char == sep
+        if scanner.eos?
           words << word.join unless word.empty?
         end
       end
