@@ -1,5 +1,13 @@
 # Change log
 
+## [v0.3.0] - 2019-12-07
+
+### Added
+* Add performance tests
+
+### Changed
+* Change to double parsing speed and halve object allocations
+
 ## [v0.2.0] - 2019-11-23
 
 ### Fixed
@@ -9,5 +17,6 @@
 
 * Initial implementation and release
 
+[v0.3.0]: https://github.com/piotrmurach/strings-case/compare/v0.1.0...v0.3.0
 [v0.2.0]: https://github.com/piotrmurach/strings-case/compare/v0.1.0...v0.2.0
 [v0.1.0]: https://github.com/piotrmurach/strings-case/compare/v0.1.0
