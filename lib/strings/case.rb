@@ -297,11 +297,9 @@ module Strings
         else
           word << scanner.getch
         end
-
-        if scanner.eos?
-          words << word.join unless word.empty?
-        end
       end
+
+      words << word.join unless word.empty?
 
       words
     end
