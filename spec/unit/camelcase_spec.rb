@@ -48,4 +48,11 @@ RSpec.describe Strings::Case, "#camelcase" do
 
     expect(camelized).to eq("http:Response:Code")
   end
+
+  it "configures acronyms on an instance method" do
+    casing = Strings::Case.new
+    camelized = casing.camelcase("HTTP response code", acronyms: %w[HTTP])
+
+    expect(camelized).to eq("HTTPResponseCode")
+  end
 end

@@ -1,5 +1,10 @@
 # Change log
 
+## [v0.4.0] - unreleased
+
+### Changed
+* Change Strings::Case to be a class to allow instantiation
+
 ## [v0.3.0] - 2019-12-07
 
 ### Added
@@ -17,6 +22,7 @@
 
 * Initial implementation and release
 
-[v0.3.0]: https://github.com/piotrmurach/strings-case/compare/v0.1.0...v0.3.0
+[v0.4.0]: https://github.com/piotrmurach/strings-case/compare/v0.3.0...v0.4.0
+[v0.3.0]: https://github.com/piotrmurach/strings-case/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/piotrmurach/strings-case/compare/v0.1.0...v0.2.0
 [v0.1.0]: https://github.com/piotrmurach/strings-case/compare/v0.1.0

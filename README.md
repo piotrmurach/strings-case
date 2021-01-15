@@ -80,7 +80,7 @@ Or install it yourself as:
 
 ## 1. Usage
 
-The `Strings::Case` is a module with functions for transforming between string cases:
+The `Strings::Case` is a class with functions for transforming between string cases:
 
 ```ruby
 Strings::Case.snakecase("foo bar baz")

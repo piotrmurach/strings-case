@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
+require "forwardable"
 require "strscan"
 
 require_relative "case/version"
 
 module Strings
-  module Case
+  class Case
     DIGITS = ("0".."9").freeze
     UP_LETTERS = ("A".."Z").freeze
     DOWN_LETTERS = ("a".."z").freeze
@@ -26,6 +27,22 @@ module Strings
       end
       alias upcase downcase
       alias capitalize downcase
+    end
+
+    # Global instance
+    #
+    # @api private
+    def self.__instance__
+      @__instance__ ||= Case.new
+    end
+
+    class << self
+      extend Forwardable
+
+      delegate %i[camelcase constcase constantcase dashcase
+                  headercase kebabcase lower_camelcase
+                  pascalcase pathcase sentencecase snakecase
+                  titlecase underscore upper_camelcase] => :__instance__
     end
 
     # Convert string to camel case:
@@ -56,10 +73,7 @@ module Strings
         res[0].downcase + res[1..-1]
       end
     end
-    module_function :camelcase
-
     alias lower_camelcase camelcase
-    module_function :lower_camelcase
 
     # Converts string to a constant
     #
@@ -77,10 +91,7 @@ module Strings
     def constcase(string, separator: "_")
       parsecase(string, sep: separator, casing: :upcase)
     end
-    module_function :constcase
-
     alias constantcase constcase
-    module_function :constantcase
 
     # Convert string to a HTTP Header
     #
@@ -98,7 +109,6 @@ module Strings
     def headercase(string, acronyms: [], separator: "-")
       parsecase(string, acronyms: acronyms, sep: separator, casing: :capitalize)
     end
-    module_function :headercase
 
     # Converts string to lower case words linked by hyphenes
     #
@@ -120,10 +130,7 @@ module Strings
     def kebabcase(string, acronyms: [], separator: "-")
       parsecase(string, acronyms: acronyms, sep: separator)
     end
-    module_function :kebabcase
-
     alias dashcase kebabcase
-    module_function :dashcase
 
     # Convert string to pascal case:
     # * every word has its first character uppercased
@@ -143,10 +150,7 @@ module Strings
     def pascalcase(string, acronyms: [], separator: "")
       parsecase(string, acronyms: acronyms, sep: separator, casing: :capitalize)
     end
-    module_function :pascalcase
-
     alias upper_camelcase pascalcase
-    module_function :upper_camelcase
 
     # Convert string into a file path.
     #
@@ -168,7 +172,6 @@ module Strings
     def pathcase(string, acronyms: [], separator: "/")
       parsecase(string, acronyms: acronyms, sep: separator)
     end
-    module_function :pathcase
 
     # Convert string int a sentence
     #
@@ -190,7 +193,6 @@ module Strings
 
       res[0].upcase + res[1..-1]
     end
-    module_function :sentencecase
 
     # Convert string into a snake_case
     #
@@ -212,10 +214,7 @@ module Strings
     def snakecase(string, acronyms: [], separator: "_")
       parsecase(string, acronyms: acronyms, sep: separator)
     end
-    module_function :snakecase
-
     alias underscore snakecase
-    module_function :underscore
 
     # Convert string into a title case
     #
@@ -233,7 +232,8 @@ module Strings
     def titlecase(string, acronyms: [], separator: " ")
       parsecase(string, acronyms: acronyms, sep: separator, casing: :capitalize)
     end
-    module_function :titlecase
+
+    private
 
     # Parse string and transform to desired case
     #
@@ -250,8 +250,6 @@ module Strings
         .map(&casing)
         .join(sep)
     end
-    module_function :parsecase
-    private_class_method :parsecase
 
     # Split string into words
     #
@@ -303,6 +301,5 @@ module Strings
 
       words
     end
-    module_function :split_into_words
   end # Case
 end # Strings

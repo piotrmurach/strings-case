@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
 module Strings
-  module Case
+  class Case
     module Extensions
       refine String do
         def camelcase(*args, **options)
           Strings::Case.camelcase(self, *args, **options)
         end
-        alias lower_camelcase camelcase
+        alias_method :lower_camelcase, :camelcase
 
         def constcase(*args, **options)
           Strings::Case.constcase(self, *args, **options)
         end
-        alias constantcase constcase
+        alias_method :constantcase, :constcase
 
         def headercase(*args, **options)
           Strings::Case.headercase(self, *args, **options)
@@ -21,12 +21,12 @@ module Strings
         def kebabcase(*args, **options)
           Strings::Case.kebabcase(self, *args, **options)
         end
-        alias dashcase kebabcase
+        alias_method :dashcase, :kebabcase
 
         def pascalcase(*args, **options)
           Strings::Case.pascalcase(self, *args, **options)
         end
-        alias upper_camelcase pascalcase
+        alias_method :upper_camelcase, :pascalcase
 
         def pathcase(*args, **options)
           Strings::Case.pathcase(self, *args, **options)
@@ -39,7 +39,7 @@ module Strings
         def snakecase(*args, **options)
           Strings::Case.snakecase(self, *args, **options)
         end
-        alias underscore snakecase
+        alias_method :underscore, :snakecase
 
         def titlecase(*args, **options)
           Strings::Case.titlecase(self, *args, **options)
