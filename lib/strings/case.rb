@@ -4,6 +4,7 @@ require "forwardable"
 require "strscan"
 
 require_relative "case/acronyms"
+require_relative "case/configuration"
 require_relative "case/version"
 
 module Strings
@@ -44,6 +45,28 @@ module Strings
                   headercase kebabcase lower_camelcase
                   pascalcase pathcase sentencecase snakecase
                   titlecase underscore upper_camelcase] => :__instance__
+    end
+
+    # Access configuration
+    #
+    # @api public
+    def config
+      @config ||= Configuration.new
+    end
+
+    # Configure acronyms
+    #
+    # @example
+    #   strings = Strings::Case.new
+    #   strings.configure do |config|
+    #     config.acronym "HTTP"
+    #   end
+    #
+    # @yield [Configuration]
+    #
+    # @api public
+    def configure
+      yield config
     end
 
     # Convert string to camel case:
