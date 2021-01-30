@@ -3,6 +3,7 @@
 require "forwardable"
 require "strscan"
 
+require_relative "case/acronyms"
 require_relative "case/version"
 
 module Strings
