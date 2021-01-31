@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "set"
+require_relative "acronyms"
 
 module Strings
   class Case
@@ -17,7 +17,7 @@ module Strings
       #
       # @api public
       def initialize
-        @acronyms = Set.new
+        @acronyms = Acronyms.new
       end
 
       # Add an acronym

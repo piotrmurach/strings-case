@@ -77,7 +77,7 @@ module Strings
     #
     # @api public
     def camelcase(string, acronyms: [], separator: "")
-      acronyms = Acronyms.from(acronyms.empty? ? config.acronyms : acronyms)
+      acronyms = acronyms.empty? ? config.acronyms : Acronyms.from(acronyms)
       parsecase(string, acronyms: acronyms, sep: separator) do |word, i|
         acronyms.fetch(word) || (i.zero? ? word.downcase : word.capitalize)
       end
@@ -98,7 +98,7 @@ module Strings
     #
     # @api public
     def constcase(string, acronyms: [], separator: "_")
-      acronyms = Acronyms.from(acronyms.empty? ? config.acronyms : acronyms)
+      acronyms = acronyms.empty? ? config.acronyms : Acronyms.from(acronyms)
       parsecase(string, acronyms: acronyms, sep: separator, &:upcase)
     end
     alias constantcase constcase
@@ -117,7 +117,7 @@ module Strings
     #
     # @api public
     def headercase(string, acronyms: [], separator: "-")
-      acronyms = Acronyms.from(acronyms.empty? ? config.acronyms : acronyms)
+      acronyms = acronyms.empty? ? config.acronyms : Acronyms.from(acronyms)
       parsecase(string, acronyms: acronyms, sep: separator) do |word|
         (acronym = acronyms.fetch(word)) ? acronym : word.capitalize
       end
@@ -141,7 +141,7 @@ module Strings
     #
     # @api public
     def kebabcase(string, acronyms: [], separator: "-")
-      acronyms = Acronyms.from(acronyms.empty? ? config.acronyms : acronyms)
+      acronyms = acronyms.empty? ? config.acronyms : Acronyms.from(acronyms)
       parsecase(string, acronyms: acronyms, sep: separator, &:downcase)
     end
     alias dashcase kebabcase
@@ -162,7 +162,7 @@ module Strings
     #
     # @api public
     def pascalcase(string, acronyms: [], separator: "")
-      acronyms = Acronyms.from(acronyms.empty? ? config.acronyms : acronyms)
+      acronyms = acronyms.empty? ? config.acronyms : Acronyms.from(acronyms)
       parsecase(string, acronyms: acronyms, sep: separator) do |word|
         acronyms.fetch(word) || word.capitalize
       end
@@ -187,7 +187,7 @@ module Strings
     #
     # @api public
     def pathcase(string, acronyms: [], separator: "/")
-      acronyms = Acronyms.from(acronyms.empty? ? config.acronyms : acronyms)
+      acronyms = acronyms.empty? ? config.acronyms : Acronyms.from(acronyms)
       parsecase(string, acronyms: acronyms, sep: separator, &:downcase)
     end
 
@@ -205,7 +205,7 @@ module Strings
     #
     # @api public
     def sentencecase(string, acronyms: [], separator: " ")
-      acronyms = Acronyms.from(acronyms.empty? ? config.acronyms : acronyms)
+      acronyms = acronyms.empty? ? config.acronyms : Acronyms.from(acronyms)
       parsecase(string, acronyms: acronyms, sep: separator) do |word, i|
         acronyms.fetch(word) || (i.zero? ? word.capitalize : word.downcase)
       end
@@ -229,7 +229,7 @@ module Strings
     #
     # @api public
     def snakecase(string, acronyms: [], separator: "_")
-      acronyms = Acronyms.from(acronyms.empty? ? config.acronyms : acronyms)
+      acronyms = acronyms.empty? ? config.acronyms : Acronyms.from(acronyms)
       parsecase(string, acronyms: acronyms, sep: separator, &:downcase)
     end
     alias underscore snakecase
@@ -248,7 +248,7 @@ module Strings
     #
     # @api public
     def titlecase(string, acronyms: [], separator: " ")
-      acronyms = Acronyms.from(acronyms.empty? ? config.acronyms : acronyms)
+      acronyms = acronyms.empty? ? config.acronyms : Acronyms.from(acronyms)
       parsecase(string, acronyms: acronyms, sep: separator) do |word|
         acronyms.fetch(word) || word.capitalize
       end

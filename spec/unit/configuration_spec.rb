@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 RSpec.describe Strings::Case::Configuration do
-  it "sets acronyms to an empty set" do
+  it "sets acronyms to an empty acronyms collection" do
     config = described_class.new
 
-    expect(config.acronyms).to eq(Set.new)
+    expect(config.acronyms).to be_a(Strings::Case::Acronyms)
+    expect(config.acronyms.to_a).to eq([])
   end
 
   it "configures acronyms" do

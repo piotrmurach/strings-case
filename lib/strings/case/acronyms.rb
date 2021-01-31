@@ -52,6 +52,7 @@ module Strings
         @entries[string.downcase] = string
         @pattern = /#{Regexp.union(to_a)}(?=\b|[^\p{Ll}])/
       end
+      alias << add
 
       # Find an acronym
       #

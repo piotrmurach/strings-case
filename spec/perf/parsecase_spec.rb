@@ -6,17 +6,35 @@ require "active_support"
 RSpec.describe Strings::Case do
   include RSpec::Benchmark::Matchers
 
-  it "changes case slower than ActiveSupport by 2.5x" do
+  it "changes case slower than ActiveSupport by 2.2x" do
     expect {
       Strings::Case.snakecase("fooBarBaz")
     }.to perform_slower_than {
       ActiveSupport::Inflector.underscore("fooBarBaz")
-    }.at_most(2.5).times
+    }.at_most(2.2).times
   end
 
-  it "allocates no more than 34 objects" do
+  it "changes case with acronyms slower than ActiveSupport by 1.1x" do
+    strings = Strings::Case.new
+
+    strings.configure do |config|
+      config.acronym "fooBar"
+    end
+
+    ActiveSupport::Inflector.inflections(:en) do |inflect|
+      inflect.acronym "fooBar"
+    end
+
+    expect {
+      strings.snakecase("fooBarBaz")
+    }.to perform_slower_than {
+      ActiveSupport::Inflector.underscore("fooBarBaz")
+    }.at_most(1.1).times
+  end
+
+  it "allocates no more than 32 objects" do
     expect {
       Strings::Case.snakecase("fooBarBaz")
-    }.to perform_allocation(34).objects
+    }.to perform_allocation(32).objects
   end
 end
