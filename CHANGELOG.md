@@ -2,8 +2,13 @@
 
 ## [v0.4.0] - unreleased
 
+### Added
+* Add the ability to configure acronyms on an instance
+
 ### Changed
 * Change Strings::Case to be a class to allow instantiation
+* Change all conversions to apply acronyms configured on an instance
+* Change all conversions to preserve non-alphanumeric characters
 
 ## [v0.3.0] - 2019-12-07
 
@@ -25,4 +30,4 @@
 [v0.4.0]: https://github.com/piotrmurach/strings-case/compare/v0.3.0...v0.4.0
 [v0.3.0]: https://github.com/piotrmurach/strings-case/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/piotrmurach/strings-case/compare/v0.1.0...v0.2.0
-[v0.1.0]: https://github.com/piotrmurach/strings-case/compare/v0.1.0
+[v0.1.0]: https://github.com/piotrmurach/strings-case/compare/03679ef...v0.1.0
