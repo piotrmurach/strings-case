@@ -9,14 +9,8 @@ require_relative "case/version"
 
 module Strings
   class Case
-    DIGITS = ("0".."9").freeze
-    UP_LETTERS = ("A".."Z").freeze
-    DOWN_LETTERS = ("a".."z").freeze
     DELIMITERS = [" ", "\n", "\t", "_", ".", "-", "#", "?", "!"].freeze
     DELIMS = Regexp.union(DELIMITERS)
-    NONALPHANUMERIC = (32..127).map(&:chr) -
-      (DIGITS.to_a + DOWN_LETTERS.to_a + UP_LETTERS.to_a + DELIMITERS)
-    NONALPHAS = Regexp.union(NONALPHANUMERIC)
     UPPERCASE = /^(\p{Ll}|\p{Digit})\p{Lu}/.freeze
     LOWERCASE = /\p{Lu}(?=\p{Ll})/.freeze
 
@@ -331,8 +325,6 @@ module Strings
           else
             word = []
           end
-        elsif scanner.skip(NONALPHAS)
-          # noop
         else
           word << scanner.getch
         end
