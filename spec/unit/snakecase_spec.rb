@@ -26,7 +26,7 @@ RSpec.describe Strings::Case, "#snakecase" do
     "get2HTTPResponse" => "get2_http_response",
     "HTTPResponseCode" => "http_response_code",
     "HTTPResponseCodeXY" => "http_response_code_xy",
-    "supports IPv6 on iOS?" =>  "supports_ipv6_on_ios",
+    "supports IPv6 on iOS?" => "supports_ipv6_on_ios"
   }.each do |actual, expected|
     it "applies snakecase to #{actual.inspect} -> #{expected.inspect}" do
       expect(Strings::Case.snakecase(actual)).to eq(expected)
@@ -37,15 +37,62 @@ RSpec.describe Strings::Case, "#snakecase" do
     expect(Strings::Case.snakecase("ЗдравствуйтеПривет")).to eq("здравствуйте_привет")
   end
 
-  it "allows to preserve acronyms" do
-    snaked = Strings::Case.underscore("HTTP response code", acronyms: ["HTTP"])
-
-    expect(snaked).to eq("HTTP_response_code")
-  end
-
   it "changes a separator to :" do
     snaked = Strings::Case.snakecase("HTTP response code", separator: ":")
 
     expect(snaked).to eq("http:response:code")
+  end
+
+  it "configures acronyms on a class method" do
+    snaked = Strings::Case.underscore("DOMXPathElement", acronyms: %w[DOM XPath])
+
+    expect(snaked).to eq("dom_xpath_element")
+  end
+
+  it "configures acronyms on an instance method" do
+    strings = Strings::Case.new
+    snaked = strings.snakecase("DOMXPathElement", acronyms: %w[DOM XPath])
+
+    expect(snaked).to eq("dom_xpath_element")
+  end
+
+  context "configures acronyms on an instance" do
+    let(:acronyms) { %w[HTTP XML PostgreSQL SQL XPath DOM] }
+    let(:strings) {
+      Strings::Case.new.tap do |strings|
+        strings.configure do |config|
+          config.acronym(*acronyms)
+        end
+      end
+    }
+
+    {
+      "HTTPResponseCode" => "http_response_code",
+      "httpsResponseCode" => "https_response_code",
+      "XMLHTTPRequest" => "xml_http_request",
+      "xmlHTTPRequest" => "xml_http_request",
+      "xmlhttpRequest" => "xmlhttp_request",
+      "PostgreSQLAdapter" => "postgresql_adapter",
+      "postgreSQLAdapter" => "postgre_sql_adapter",
+      "XPathNode" => "xpath_node",
+      "xpathnode" => "xpathnode",
+      "DOMXPathElement" => "dom_xpath_element",
+      "domxpathElement" => "domxpath_element"
+    }.each do |actual, expected|
+      it "applies snakecase to #{actual.inspect} -> #{expected.inspect}" do
+        expect(strings.snakecase(actual)).to eq(expected)
+      end
+    end
+  end
+
+  it "overrides global configuration on an instance method" do
+    strings = Strings::Case.new
+    strings.configure do |config|
+      config.acronym "DOM"
+      config.acronym "XPath"
+    end
+
+    snaked = strings.snakecase("DOMXPathElement", acronyms: %w[XML])
+    expect(snaked).to eq("domx_path_element")
   end
 end

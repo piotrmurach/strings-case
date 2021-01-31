@@ -26,7 +26,7 @@ RSpec.describe Strings::Case, "#pascalcase" do
     "get2HTTPResponse" => "Get2HttpResponse",
     "HTTPResponseCode" => "HttpResponseCode",
     "HTTPResponseCodeXY" => "HttpResponseCodeXy",
-    "supports IPv6 on iOS?" =>  "SupportsIpv6OnIos"
+    "supports IPv6 on iOS?" => "SupportsIpv6OnIos"
   }.each do |actual, expected|
     it "applies pascalcase to #{actual.inspect} -> #{expected.inspect}" do
       expect(Strings::Case.pascalcase(actual)).to eq(expected)
@@ -37,15 +37,64 @@ RSpec.describe Strings::Case, "#pascalcase" do
     expect(Strings::Case.pascalcase("ЗдравствуйтеПривет")).to eq("ЗдравствуйтеПривет")
   end
 
-  it "allows to preserve acronyms" do
-    camelized = Strings::Case.upper_camelcase("HTTP response code", acronyms: ["HTTP"])
+  it "changes a separator to :" do
+    pascalized = Strings::Case.pascalcase("HTTP response code", separator: ":")
 
-    expect(camelized).to eq("HTTPResponseCode")
+    expect(pascalized).to eq("Http:Response:Code")
   end
 
-  it "changes a separator to :" do
-    camelized = Strings::Case.pascalcase("HTTP response code", separator: ":")
+  it "configures acronyms on a class method" do
+    pascalized = Strings::Case.upper_camelcase("HTTP response code",
+                                               acronyms: ["HTTP"])
 
-    expect(camelized).to eq("Http:Response:Code")
+    expect(pascalized).to eq("HTTPResponseCode")
+  end
+
+  it "configures acronyms on an instance method" do
+    strings = Strings::Case.new
+    pascalized = strings.pascalcase("HTTP response code", acronyms: %w[HTTP])
+
+    expect(pascalized).to eq("HTTPResponseCode")
+  end
+
+  context "configures acronyms on an instance" do
+    let(:acronyms) { %w[HTTP XML PostgreSQL SQL DOM XPath RESTful] }
+    let(:strings) {
+      Strings::Case.new.tap do |strings|
+        strings.configure do |config|
+          config.acronym(*acronyms)
+        end
+      end
+    }
+
+    {
+      "http response code" => "HTTPResponseCode",
+      "https response code" => "HttpsResponseCode",
+      "xml_http_request" => "XMLHTTPRequest",
+      "XML_HTTP_Request" => "XMLHTTPRequest",
+      "xmlHTTPRequest" => "XMLHTTPRequest",
+      "XMLHTTPRequest" => "XMLHTTPRequest",
+      "xmlhttpRequest" => "XmlhttpRequest",
+      "postgresql_adapter" => "PostgreSQLAdapter",
+      "postgre_sql_adapter" => "PostgreSQLAdapter",
+      "xpath node" => "XPathNode",
+      "xpathnode" => "Xpathnode",
+      "dom xpath element" => "DOMXPathElement",
+      "domxpath element" => "DomxpathElement"
+    }.each do |actual, expected|
+      it "applies pascalcase to #{actual.inspect} -> #{expected.inspect}" do
+        expect(strings.pascalcase(actual)).to eq(expected)
+      end
+    end
+  end
+
+  it "overrides global configuration on an instance method" do
+    strings = Strings::Case.new
+    strings.configure do |config|
+      config.acronym "HTTP"
+    end
+
+    pascalized = strings.pascalcase("HTTP response code", acronyms: %w[XML])
+    expect(pascalized).to eq("HttpResponseCode")
   end
 end

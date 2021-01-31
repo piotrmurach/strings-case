@@ -10,7 +10,8 @@ RSpec.describe Strings::Case::Extensions do
   end
 
   it "camelcase a string with acronyms" do
-    expect("HTTP Response Code".lower_camelcase(acronyms: ["HTTP"])).to eq("HTTPResponseCode")
+    expect("HTTP Response Code".lower_camelcase(acronyms: ["HTTP"]))
+      .to eq("HTTPResponseCode")
   end
 
   it "constcase a string" do
@@ -22,7 +23,8 @@ RSpec.describe Strings::Case::Extensions do
   end
 
   it "headercases a string with acronyms" do
-    expect("HTTP Response Code".headercase(acronyms: ["HTTP"])).to eq("HTTP-Response-Code")
+    expect("HTTP Response Code".headercase(acronyms: ["HTTP"]))
+      .to eq("HTTP-Response-Code")
   end
 
   it "kebabcases a string" do
@@ -30,7 +32,8 @@ RSpec.describe Strings::Case::Extensions do
   end
 
   it "kebabcases a string with acronyms" do
-    expect("HTTP Response Code".dashcase(acronyms: ["HTTP"])).to eq("HTTP-response-code")
+    expect("DOMXPathElement".dashcase(acronyms: %w[DOM XPath]))
+      .to eq("dom-xpath-element")
   end
 
   it "pascalcases a string" do
@@ -38,7 +41,8 @@ RSpec.describe Strings::Case::Extensions do
   end
 
   it "pascalcases a string with acronyms" do
-    expect("HTTP Response Code".pascalcase(acronyms: ["HTTP"])).to eq("HTTPResponseCode")
+    expect("HTTP Response Code".pascalcase(acronyms: ["HTTP"]))
+      .to eq("HTTPResponseCode")
   end
 
   it "pathcases a string" do
@@ -46,7 +50,8 @@ RSpec.describe Strings::Case::Extensions do
   end
 
   it "pathcases a string with acronyms" do
-    expect("HTTP Response Code".pathcase(acronyms: ["HTTP"])).to eq("HTTP/response/code")
+    expect("DOMXPathElement".pathcase(acronyms: %w[DOM XPath]))
+      .to eq("dom/xpath/element")
   end
 
   it "sentencecases a string" do
@@ -54,7 +59,8 @@ RSpec.describe Strings::Case::Extensions do
   end
 
   it "sentencecases a string with acronyms" do
-    expect("HTTP Response Code".sentencecase(acronyms: ["HTTP"])).to eq("HTTP response code")
+    expect("HTTP Response Code".sentencecase(acronyms: ["HTTP"]))
+      .to eq("HTTP response code")
   end
 
   it "snakecases a string" do
@@ -62,7 +68,8 @@ RSpec.describe Strings::Case::Extensions do
   end
 
   it "snakecases a string with acronyms" do
-    expect("HTTP Response Code".underscore(acronyms: ["HTTP"])).to eq("HTTP_response_code")
+    expect("DOMXPathElement".underscore(acronyms: %w[DOM XPath]))
+      .to eq("dom_xpath_element")
   end
 
   it "titlecases a string" do
@@ -70,6 +77,7 @@ RSpec.describe Strings::Case::Extensions do
   end
 
   it "titlecase a string with acronyms" do
-    expect("HTTP Response Code".titlecase(acronyms: ["HTTP"])).to eq("HTTP Response Code")
+    expect("HTTP Response Code".titlecase(acronyms: ["HTTP"]))
+      .to eq("HTTP Response Code")
   end
 end

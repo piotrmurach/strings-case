@@ -22,15 +22,6 @@ module Strings
 
     class Error < StandardError; end
 
-    # Prevent changing case
-    module NullCase
-      def downcase
-        self
-      end
-      alias upcase downcase
-      alias capitalize downcase
-    end
-
     # Global instance
     #
     # @api private
@@ -86,20 +77,14 @@ module Strings
     #
     # @api public
     def camelcase(string, acronyms: [], separator: "")
-      res = parsecase(string, acronyms: acronyms, sep: separator, casing: :capitalize)
-
-      return res if res.to_s.empty?
-
-      acronyms_regex = /^(#{acronyms.join("|")})/
-      if !acronyms.empty? && (res =~ acronyms_regex)
-        res
-      else
-        res[0].downcase + res[1..-1]
+      acronyms = Acronyms.from(acronyms.empty? ? config.acronyms : acronyms)
+      parsecase(string, acronyms: acronyms, sep: separator) do |word, i|
+        acronyms.fetch(word) || (i.zero? ? word.downcase : word.capitalize)
       end
     end
     alias lower_camelcase camelcase
 
-    # Converts string to a constant
+    # Convert string to a constant
     #
     # @example
     #   constantcase("foo bar baz") # => "FOO_BAR_BAZ"
@@ -112,8 +97,9 @@ module Strings
     #   the words separator, by default "_"
     #
     # @api public
-    def constcase(string, separator: "_")
-      parsecase(string, sep: separator, casing: :upcase)
+    def constcase(string, acronyms: [], separator: "_")
+      acronyms = Acronyms.from(acronyms.empty? ? config.acronyms : acronyms)
+      parsecase(string, acronyms: acronyms, sep: separator, &:upcase)
     end
     alias constantcase constcase
 
@@ -131,7 +117,10 @@ module Strings
     #
     # @api public
     def headercase(string, acronyms: [], separator: "-")
-      parsecase(string, acronyms: acronyms, sep: separator, casing: :capitalize)
+      acronyms = Acronyms.from(acronyms.empty? ? config.acronyms : acronyms)
+      parsecase(string, acronyms: acronyms, sep: separator) do |word|
+        (acronym = acronyms.fetch(word)) ? acronym : word.capitalize
+      end
     end
 
     # Converts string to lower case words linked by hyphenes
@@ -152,7 +141,8 @@ module Strings
     #
     # @api public
     def kebabcase(string, acronyms: [], separator: "-")
-      parsecase(string, acronyms: acronyms, sep: separator)
+      acronyms = Acronyms.from(acronyms.empty? ? config.acronyms : acronyms)
+      parsecase(string, acronyms: acronyms, sep: separator, &:downcase)
     end
     alias dashcase kebabcase
 
@@ -172,7 +162,10 @@ module Strings
     #
     # @api public
     def pascalcase(string, acronyms: [], separator: "")
-      parsecase(string, acronyms: acronyms, sep: separator, casing: :capitalize)
+      acronyms = Acronyms.from(acronyms.empty? ? config.acronyms : acronyms)
+      parsecase(string, acronyms: acronyms, sep: separator) do |word|
+        acronyms.fetch(word) || word.capitalize
+      end
     end
     alias upper_camelcase pascalcase
 
@@ -194,10 +187,11 @@ module Strings
     #
     # @api public
     def pathcase(string, acronyms: [], separator: "/")
-      parsecase(string, acronyms: acronyms, sep: separator)
+      acronyms = Acronyms.from(acronyms.empty? ? config.acronyms : acronyms)
+      parsecase(string, acronyms: acronyms, sep: separator, &:downcase)
     end
 
-    # Convert string int a sentence
+    # Convert string into a sentence
     #
     # @example
     #   sentencecase("foo bar baz") # => "Foo bar baz"
@@ -211,11 +205,10 @@ module Strings
     #
     # @api public
     def sentencecase(string, acronyms: [], separator: " ")
-      res = parsecase(string, acronyms: acronyms, sep: separator, casing: :downcase)
-
-      return res if res.to_s.empty?
-
-      res[0].upcase + res[1..-1]
+      acronyms = Acronyms.from(acronyms.empty? ? config.acronyms : acronyms)
+      parsecase(string, acronyms: acronyms, sep: separator) do |word, i|
+        acronyms.fetch(word) || (i.zero? ? word.capitalize : word.downcase)
+      end
     end
 
     # Convert string into a snake_case
@@ -236,11 +229,12 @@ module Strings
     #
     # @api public
     def snakecase(string, acronyms: [], separator: "_")
-      parsecase(string, acronyms: acronyms, sep: separator)
+      acronyms = Acronyms.from(acronyms.empty? ? config.acronyms : acronyms)
+      parsecase(string, acronyms: acronyms, sep: separator, &:downcase)
     end
     alias underscore snakecase
 
-    # Convert string into a title case
+    # Convert string into a title
     #
     # @example
     #   titlecase("foo bar baz") # => "Foo Bar Baz"
@@ -254,45 +248,68 @@ module Strings
     #
     # @api public
     def titlecase(string, acronyms: [], separator: " ")
-      parsecase(string, acronyms: acronyms, sep: separator, casing: :capitalize)
+      acronyms = Acronyms.from(acronyms.empty? ? config.acronyms : acronyms)
+      parsecase(string, acronyms: acronyms, sep: separator) do |word|
+        acronyms.fetch(word) || word.capitalize
+      end
     end
 
     private
 
     # Parse string and transform to desired case
     #
+    # @param [String] string
+    #   the string to convert to a given case
+    # @param [Acronyms] acronyms
+    #   the acronyms to use to parse words
+    # @param [String] sep
+    #   the separator for linking words, defaults to `_`
+    #
+    # @yield [word, index]
+    #
     # @api private
-    def parsecase(string, acronyms: [], sep: "_", casing: :downcase)
+    def parsecase(string, acronyms: nil, sep: "_", &conversion)
       return if string.nil?
 
-      words = split_into_words(string, sep: sep)
+      word_conversion =
+        if conversion && conversion.arity <= 1
+          ->(word, _) { conversion.(word) }
+        elsif conversion
+          ->(word, idx) { conversion.(word, idx) }
+        else
+          ->(word, _) { word }
+        end
 
-      no_case = ->(w) { acronyms.include?(w) ? w.extend(NullCase) : w }
-
-      words
-        .map(&no_case)
-        .map(&casing)
-        .join(sep)
+      split_into_words(string, acronyms: acronyms, sep: sep)
+        .map.with_index(&word_conversion).join(sep)
     end
 
     # Split string into words
+    #
+    # @param [String] string
+    #   the string to split into words
+    # @param [Acronyms] acronyms
+    #   the acronyms to use to split words
+    # @param [String] sep
+    #   the separator to use to split words
     #
     # @return [Array[String]]
     #   the split words
     #
     # @api private
-    def split_into_words(string, sep: nil)
+    def split_into_words(string, acronyms: nil, sep: nil)
       words = []
       word = []
       scanner = StringScanner.new(string)
 
       while !scanner.eos?
-        if scanner.match?(UPPERCASE)
+        if scanner.match?(acronyms.pattern)
+          scanner.scan(acronyms.pattern)
+          words << scanner.matched
+        elsif scanner.match?(UPPERCASE)
           char = scanner.getch
-          if word.size <= 1 # don't allow single letter words
-            word << char
-          else
-            word << char
+          word << char
+          if word.size > 1 # don't allow single letter words
             words << word.join
             word = []
           end

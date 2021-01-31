@@ -26,7 +26,7 @@ RSpec.describe Strings::Case, "#camelcase" do
     "get2HTTPResponse" => "get2HttpResponse",
     "HTTPResponseCode" => "httpResponseCode",
     "HTTPResponseCodeXY" => "httpResponseCodeXy",
-    "supports IPv6 on iOS?" =>  "supportsIpv6OnIos"
+    "supports IPv6 on iOS?" => "supportsIpv6OnIos"
   }.each do |actual, expected|
     it "applies camelcase to #{actual.inspect} -> #{expected.inspect}" do
       expect(Strings::Case.camelcase(actual)).to eq(expected)
@@ -37,22 +37,64 @@ RSpec.describe Strings::Case, "#camelcase" do
     expect(Strings::Case.camelcase("ЗдравствуйтеПривет")).to eq("здравствуйтеПривет")
   end
 
-  it "allows to preserve acronyms" do
-    camelized = Strings::Case.lower_camelcase("HTTP response code", acronyms: ["HTTP"])
-
-    expect(camelized).to eq("HTTPResponseCode")
-  end
-
   it "changes a separator to :" do
     camelized = Strings::Case.camelcase("HTTP response code", separator: ":")
 
     expect(camelized).to eq("http:Response:Code")
   end
 
-  it "configures acronyms on an instance method" do
-    casing = Strings::Case.new
-    camelized = casing.camelcase("HTTP response code", acronyms: %w[HTTP])
+  it "configures acronyms on a class method" do
+    camelized = Strings::Case.lower_camelcase("HTTP response code",
+                                              acronyms: ["HTTP"])
 
     expect(camelized).to eq("HTTPResponseCode")
+  end
+
+  it "configures acronyms on an instance method" do
+    strings = Strings::Case.new
+    camelized = strings.camelcase("HTTP response code", acronyms: %w[HTTP])
+
+    expect(camelized).to eq("HTTPResponseCode")
+  end
+
+  context "configures acronyms on an instance" do
+    let(:acronyms) { %w[HTTP XML PostgreSQL SQL DOM XPath] }
+    let(:strings) {
+      Strings::Case.new.tap do |strings|
+        strings.configure do |config|
+          config.acronym(*acronyms)
+        end
+      end
+    }
+
+    {
+      "http response code" => "HTTPResponseCode",
+      "https response code" => "httpsResponseCode",
+      "xml_http_request" => "XMLHTTPRequest",
+      "XML_HTTP_Request" => "XMLHTTPRequest",
+      "XMLHTTPRequest" => "XMLHTTPRequest",
+      "xmlHTTPRequest" => "XMLHTTPRequest",
+      "xmlhttpRequest" => "xmlhttpRequest",
+      "postgresql_adapter" => "PostgreSQLAdapter",
+      "postgre_sql_adapter" => "postgreSQLAdapter",
+      "xpath node" => "XPathNode",
+      "xpathnode" => "xpathnode",
+      "dom xpath element" => "DOMXPathElement",
+      "domxpath element" => "domxpathElement"
+    }.each do |actual, expected|
+      it "applies camelcase to #{actual.inspect} -> #{expected.inspect}" do
+        expect(strings.camelcase(actual)).to eq(expected)
+      end
+    end
+  end
+
+  it "overrides global configuration on an instance method" do
+    strings = Strings::Case.new
+    strings.configure do |config|
+      config.acronym "HTTP"
+    end
+
+    camelized = strings.camelcase("HTTP response code", acronyms: %w[XML])
+    expect(camelized).to eq("httpResponseCode")
   end
 end

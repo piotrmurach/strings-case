@@ -25,7 +25,7 @@ RSpec.describe Strings::Case, "#headercase" do
     "get2HTTPResponse" => "Get2-Http-Response",
     "HTTPResponseCode" => "Http-Response-Code",
     "HTTPResponseCodeXY" => "Http-Response-Code-Xy",
-    "supports IPv6 on iOS?" =>  "Supports-Ipv6-On-Ios",
+    "supports IPv6 on iOS?" => "Supports-Ipv6-On-Ios"
   }.each do |actual, expected|
     it "applies headercase to #{actual.inspect} -> #{expected.inspect}" do
       expect(Strings::Case.headercase(actual)).to eq(expected)
@@ -36,15 +36,63 @@ RSpec.describe Strings::Case, "#headercase" do
     expect(Strings::Case.headercase("ЗдравствуйтеПривет")).to eq("Здравствуйте-Привет")
   end
 
-  it "allows to preserve acronyms" do
+  it "changes a separator to :" do
+    headered = Strings::Case.headercase("HTTP response code", separator: ":")
+
+    expect(headered).to eq("Http:Response:Code")
+  end
+
+  it "configures acronyms on a class method" do
     headered = Strings::Case.headercase("HTTP response code", acronyms: ["HTTP"])
 
     expect(headered).to eq("HTTP-Response-Code")
   end
 
-  it "changes a separator to :" do
-    headered = Strings::Case.headercase("HTTP response code", separator: ":")
+  it "configures acronyms on an instance method" do
+    strings = Strings::Case.new
+    headered = strings.headercase("HTTP response code", acronyms: %w[HTTP])
 
-    expect(headered).to eq("Http:Response:Code")
+    expect(headered).to eq("HTTP-Response-Code")
+  end
+
+  context "configures acronyms on an instance" do
+    let(:acronyms) { %w[HTTP XML PostgreSQL SQL DOM XPath RESTful] }
+    let(:strings) {
+      Strings::Case.new.tap do |strings|
+        strings.configure do |config|
+          config.acronym(*acronyms)
+        end
+      end
+    }
+
+    {
+      "http response code" => "HTTP-Response-Code",
+      "https response code" => "Https-Response-Code",
+      "xml_http_request" => "XML-HTTP-Request",
+      "XML_HTTP_Request" => "XML-HTTP-Request",
+      "xmlHTTPRequest" => "XML-HTTP-Request",
+      "XMLHTTPRequest" => "XML-HTTP-Request",
+      "xmlhttpRequest" => "Xmlhttp-Request",
+      "postgresql_adapter" => "PostgreSQL-Adapter",
+      "postgre_sql_adapter" => "Postgre-SQL-Adapter",
+      "xpath node" => "XPath-Node",
+      "xpathnode" => "Xpathnode",
+      "dom xpath element" => "DOM-XPath-Element",
+      "domxpath element" => "Domxpath-Element"
+    }.each do |actual, expected|
+      it "applies headercase to #{actual.inspect} -> #{expected.inspect}" do
+        expect(strings.headercase(actual)).to eq(expected)
+      end
+    end
+  end
+
+  it "overrides global configuration on an instance method" do
+    strings = Strings::Case.new
+    strings.configure do |config|
+      config.acronym "HTTP"
+    end
+
+    headered = strings.headercase("HTTP response code", acronyms: %w[XML])
+    expect(headered).to eq("Http-Response-Code")
   end
 end
