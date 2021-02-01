@@ -303,18 +303,12 @@ module Strings
         elsif scanner.match?(UPPERCASE)
           char = scanner.getch
           word << char
-          if word.size > 1 # don't allow single letter words
-            words << word.join
-            word = []
-          end
+          words << word.join
+          word.clear
         elsif scanner.match?(LOWERCASE)
           char = scanner.getch
-          if word.size <= 1 # don't allow single letter words
-            word << char
-          else
-            words << word.join
-            word = [char]
-          end
+          words << word.join unless word.empty?
+          word = [char]
         elsif scanner.match?(DELIMS)
           char = scanner.getch
           words << word.join unless word.empty?
@@ -323,7 +317,7 @@ module Strings
           elsif scanner.eos? && char == sep
             word = [""]
           else
-            word = []
+            word.clear
           end
         else
           word << scanner.getch

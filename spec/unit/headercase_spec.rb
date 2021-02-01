@@ -25,7 +25,7 @@ RSpec.describe Strings::Case, "#headercase" do
     "get2HTTPResponse" => "Get2-Http-Response",
     "HTTPResponseCode" => "Http-Response-Code",
     "HTTPResponseCodeXY" => "Http-Response-Code-Xy",
-    "supports IPv6 on iOS?" => "Supports-Ipv6-On-Ios"
+    "supports IPv6 on iOS?" => "Supports-I-Pv6-On-I-Os"
   }.each do |actual, expected|
     it "applies headercase to #{actual.inspect} -> #{expected.inspect}" do
       expect(Strings::Case.headercase(actual)).to eq(expected)

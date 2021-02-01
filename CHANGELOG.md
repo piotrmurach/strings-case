@@ -9,6 +9,7 @@
 * Change Strings::Case to be a class to allow instantiation
 * Change all conversions to apply acronyms configured on an instance
 * Change all conversions to preserve non-alphanumeric characters
+* Change all conversions to allow for one-letter words
 
 ## [v0.3.0] - 2019-12-07
 

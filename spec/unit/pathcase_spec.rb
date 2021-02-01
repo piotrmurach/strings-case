@@ -26,7 +26,7 @@ RSpec.describe Strings::Case, "#pathcase" do
     "get2HTTPResponse" => "get2/http/response",
     "HTTPResponseCode" => "http/response/code",
     "HTTPResponseCodeXY" => "http/response/code/xy",
-    "supports IPv6 on iOS?" => "supports/ipv6/on/ios"
+    "supports IPv6 on iOS?" => "supports/i/pv6/on/i/os"
   }.each do |actual, expected|
     it "applies pathcase to #{actual.inspect} -> #{expected.inspect}" do
       expect(Strings::Case.pathcase(actual)).to eq(expected)

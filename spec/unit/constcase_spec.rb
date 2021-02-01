@@ -25,7 +25,7 @@ RSpec.describe Strings::Case, "#constcase" do
     "get2HTTPResponse" => "GET2_HTTP_RESPONSE",
     "HTTPResponseCode" => "HTTP_RESPONSE_CODE",
     "HTTPResponseCodeXY" => "HTTP_RESPONSE_CODE_XY",
-    "supports IPv6 on iOS?" => "SUPPORTS_IPV6_ON_IOS"
+    "supports IPv6 on iOS?" => "SUPPORTS_I_PV6_ON_I_OS"
   }.each do |actual, expected|
     it "applies constcase to #{actual.inspect} -> #{expected.inspect}" do
       expect(Strings::Case.constcase(actual)).to eq(expected)

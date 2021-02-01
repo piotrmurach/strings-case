@@ -26,7 +26,7 @@ RSpec.describe Strings::Case, "#pascalcase" do
     "get2HTTPResponse" => "Get2HttpResponse",
     "HTTPResponseCode" => "HttpResponseCode",
     "HTTPResponseCodeXY" => "HttpResponseCodeXy",
-    "supports IPv6 on iOS?" => "SupportsIpv6OnIos"
+    "supports IPv6 on iOS?" => "SupportsIPv6OnIOs"
   }.each do |actual, expected|
     it "applies pascalcase to #{actual.inspect} -> #{expected.inspect}" do
       expect(Strings::Case.pascalcase(actual)).to eq(expected)

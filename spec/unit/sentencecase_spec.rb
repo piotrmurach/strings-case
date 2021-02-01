@@ -26,7 +26,7 @@ RSpec.describe Strings::Case, "#sentencecase" do
     "get2HTTPResponse" => "Get2 http response",
     "HTTPResponseCode" => "Http response code",
     "HTTPResponseCodeXY" => "Http response code xy",
-    "supports IPv6 on iOS?" => "Supports ipv6 on ios"
+    "supports IPv6 on iOS?" => "Supports i pv6 on i os"
   }.each do |actual, expected|
     it "applies sentencecase to #{actual.inspect} -> #{expected.inspect}" do
       expect(Strings::Case.sentencecase(actual)).to eq(expected)

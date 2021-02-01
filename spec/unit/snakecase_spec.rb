@@ -26,7 +26,7 @@ RSpec.describe Strings::Case, "#snakecase" do
     "get2HTTPResponse" => "get2_http_response",
     "HTTPResponseCode" => "http_response_code",
     "HTTPResponseCodeXY" => "http_response_code_xy",
-    "supports IPv6 on iOS?" => "supports_ipv6_on_ios"
+    "supports IPv6 on iOS?" => "supports_i_pv6_on_i_os"
   }.each do |actual, expected|
     it "applies snakecase to #{actual.inspect} -> #{expected.inspect}" do
       expect(Strings::Case.snakecase(actual)).to eq(expected)

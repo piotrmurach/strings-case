@@ -26,7 +26,7 @@ RSpec.describe Strings::Case, "#camelcase" do
     "get2HTTPResponse" => "get2HttpResponse",
     "HTTPResponseCode" => "httpResponseCode",
     "HTTPResponseCodeXY" => "httpResponseCodeXy",
-    "supports IPv6 on iOS?" => "supportsIpv6OnIos"
+    "supports IPv6 on iOS?" => "supportsIPv6OnIOs"
   }.each do |actual, expected|
     it "applies camelcase to #{actual.inspect} -> #{expected.inspect}" do
       expect(Strings::Case.camelcase(actual)).to eq(expected)
