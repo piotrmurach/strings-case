@@ -80,7 +80,8 @@ RSpec.describe Strings::Case, "#pascalcase" do
       "xpath node" => "XPathNode",
       "xpathnode" => "Xpathnode",
       "dom xpath element" => "DOMXPathElement",
-      "domxpath element" => "DomxpathElement"
+      "domxpath element" => "DomxpathElement",
+      "a dom element" => "ADOMElement"
     }.each do |actual, expected|
       it "applies pascalcase to #{actual.inspect} -> #{expected.inspect}" do
         expect(strings.pascalcase(actual)).to eq(expected)

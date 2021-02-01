@@ -74,7 +74,8 @@ RSpec.describe Strings::Case, "#kebabcase" do
       "XPathNode" => "xpath-node",
       "xpathnode" => "xpathnode",
       "DOMXPathElement" => "dom-xpath-element",
-      "domxpathElement" => "domxpath-element"
+      "domxpathElement" => "domxpath-element",
+      "ADOMElement" => "a-dom-element"
     }.each do |actual, expected|
       it "applies kebabcase to #{actual.inspect} -> #{expected.inspect}" do
         expect(strings.kebabcase(actual)).to eq(expected)

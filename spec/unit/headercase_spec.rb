@@ -78,7 +78,8 @@ RSpec.describe Strings::Case, "#headercase" do
       "xpath node" => "XPath-Node",
       "xpathnode" => "Xpathnode",
       "dom xpath element" => "DOM-XPath-Element",
-      "domxpath element" => "Domxpath-Element"
+      "domxpath element" => "Domxpath-Element",
+      "ADOMElement" => "A-DOM-Element"
     }.each do |actual, expected|
       it "applies headercase to #{actual.inspect} -> #{expected.inspect}" do
         expect(strings.headercase(actual)).to eq(expected)

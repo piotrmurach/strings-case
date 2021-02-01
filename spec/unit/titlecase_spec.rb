@@ -79,7 +79,8 @@ RSpec.describe Strings::Case, "#titlecase" do
       "xpath node" => "XPath Node",
       "xpathnode" => "Xpathnode",
       "dom xpath element" => "DOM XPath Element",
-      "domxpath element" => "Domxpath Element"
+      "domxpath element" => "Domxpath Element",
+      "ADOMElement" => "A DOM Element"
     }.each do |actual, expected|
       it "applies titlecase to #{actual.inspect} -> #{expected.inspect}" do
         expect(strings.titlecase(actual)).to eq(expected)

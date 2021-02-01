@@ -76,7 +76,8 @@ RSpec.describe Strings::Case, "#constcase" do
       "XPathNode" => "XPATH_NODE",
       "xpathnode" => "XPATHNODE",
       "DOMXPathElement" => "DOM_XPATH_ELEMENT",
-      "domxpathElement" => "DOMXPATH_ELEMENT"
+      "domxpathElement" => "DOMXPATH_ELEMENT",
+      "ADOMElement" => "A_DOM_ELEMENT"
     }.each do |actual, expected|
       it "applies constcase to #{actual.inspect} -> #{expected.inspect}" do
         expect(strings.constcase(actual)).to eq(expected)

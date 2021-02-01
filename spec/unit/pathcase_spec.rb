@@ -77,7 +77,8 @@ RSpec.describe Strings::Case, "#pathcase" do
       "XPathNode" => "xpath/node",
       "xpathnode" => "xpathnode",
       "DOMXPathElement" => "dom/xpath/element",
-      "domxpathElement" => "domxpath/element"
+      "domxpathElement" => "domxpath/element",
+      "ADOMElement" => "a/dom/element"
     }.each do |actual, expected|
       it "applies pathcase to #{actual.inspect} -> #{expected.inspect}" do
         expect(strings.pathcase(actual)).to eq(expected)

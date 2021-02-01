@@ -80,7 +80,8 @@ RSpec.describe Strings::Case, "#camelcase" do
       "xpath node" => "XPathNode",
       "xpathnode" => "xpathnode",
       "dom xpath element" => "DOMXPathElement",
-      "domxpath element" => "domxpathElement"
+      "domxpath element" => "domxpathElement",
+      "a dom element" => "aDOMElement"
     }.each do |actual, expected|
       it "applies camelcase to #{actual.inspect} -> #{expected.inspect}" do
         expect(strings.camelcase(actual)).to eq(expected)

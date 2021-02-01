@@ -79,7 +79,8 @@ RSpec.describe Strings::Case, "#sentencecase" do
       "xpath node" => "XPath node",
       "xpathnode" => "Xpathnode",
       "dom xpath element" => "DOM XPath element",
-      "domxpath element" => "Domxpath element"
+      "domxpath element" => "Domxpath element",
+      "ADOMElement" => "A DOM element"
     }.each do |actual, expected|
       it "applies sentencecase to #{actual.inspect} -> #{expected.inspect}" do
         expect(strings.sentencecase(actual)).to eq(expected)

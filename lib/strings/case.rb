@@ -298,6 +298,10 @@ module Strings
 
       while !scanner.eos?
         if scanner.match?(acronyms.pattern)
+          unless word.empty?
+            words << word.join
+            word.clear
+          end
           scanner.scan(acronyms.pattern)
           words << scanner.matched
         elsif scanner.match?(UPPERCASE)

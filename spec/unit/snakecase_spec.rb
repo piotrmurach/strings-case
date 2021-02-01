@@ -77,7 +77,8 @@ RSpec.describe Strings::Case, "#snakecase" do
       "XPathNode" => "xpath_node",
       "xpathnode" => "xpathnode",
       "DOMXPathElement" => "dom_xpath_element",
-      "domxpathElement" => "domxpath_element"
+      "domxpathElement" => "domxpath_element",
+      "ADOMElement" => "a_dom_element"
     }.each do |actual, expected|
       it "applies snakecase to #{actual.inspect} -> #{expected.inspect}" do
         expect(strings.snakecase(actual)).to eq(expected)
