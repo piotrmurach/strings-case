@@ -27,15 +27,15 @@
 Popular solutions that deal with transforming string cases work well in simple cases.(Sorry ;-) With more complex strings you may get unexpected results:
 
 ```ruby
-ActiveSupport::Inflector.underscore("supports IPv6 on iOS?")
-# => "supports i_pv6 on i_os?"
+ActiveSupport::Inflector.underscore("supports IPv6 on iOS 14.4?")
+# => "supports i_pv6 on i_os 14.4?"
 ```
 
 In contrast, `Strings::Case` aims to be able to transform any string to expected case:
 
 ```ruby
-Strings::Case.underscore("supports IPv6 on iOS?")
-# => "supports_ipv6_on_ios"
+Strings::Case.snakecase("supports IPv6 on iOS 14.4?")
+# => "supports_i_pv6_on_i_os_14_4"
 ```
 
 ## Installation
@@ -67,37 +67,65 @@ Or install it yourself as:
 
 * [1. Usage](#1-usage)
 * [2. API](#2-api)
-  * [2.1 camelcase](#21-camelcase)
-  * [2.2 constcase](#22-constcase)
-  * [2.3 headercase](#23-headercase)
-  * [2.4 kebabcase | dashcase](#24-kebabcase--dashcase)
-  * [2.5 pascalcase](#25-pascalcase)
-  * [2.6 pathcase](#26-pathcase)
-  * [2.7 sentencecase](#27-sentencecase)
-  * [2.8 snakecase | underscore](#28-snakecase--underscore)
-  * [2.9 titlecase](#29-titlecase)
+  * [2.1 configure](#21-configure)
+  * [2.2 camelcase](#22-camelcase)
+  * [2.3 constcase](#23-constcase)
+  * [2.4 headercase](#24-headercase)
+  * [2.5 kebabcase | dashcase](#25-kebabcase--dashcase)
+  * [2.6 pascalcase](#26-pascalcase)
+  * [2.7 pathcase](#27-pathcase)
+  * [2.8 sentencecase](#28-sentencecase)
+  * [2.9 snakecase | underscore](#29-snakecase--underscore)
+  * [2.10 titlecase](#210-titlecase)
 * [3. Extending String class](#3-extending-string-class)
 
 ## 1. Usage
 
-The `Strings::Case` is a class with functions for transforming between string cases:
+The `Strings::Case` is a class with methods for converting between string cases:
+
+``` ruby
+strings = Strings::Case.new
+strings.snakecase("FooBarBaz")
+# => "foo_bar_baz"
+```
+
+As a convenience, you can call methods directly on a class:
 
 ```ruby
-Strings::Case.snakecase("foo bar baz")
+Strings::Case.snakecase("FooBarBaz")
 # => "foo_bar_baz"
 ````
 
 It will transform any string into expected case:
 
 ```ruby
-Strings::Case.snakecase("supports IPv6 on iOS?")
+strings.snakecase("supports IPv6 on iOS?")
+# => "supports_i_pv6_on_i_os"
+```
+
+You can also specify acronyms as a method parameter:
+
+```ruby
+strings.snakecase("supports IPv6 on iOS?", acronyms: %w[IPv6 iOS])
 # => "supports_ipv6_on_ios"
 ```
 
-You can apply case transformations to Unicode characters:
+To make acronyms available for all conversions, configure them once on an instance:
 
 ```ruby
-Strings::Case.snakecase("ЗдравствуйтеПривет")
+strings.configure do |config|
+  config.acronym "IPv6"
+  config.acronym "iOS"
+end
+
+strings.snakecase("supports IPv6 on iOS?")
+# => "supports_ipv6_on_ios"
+```
+
+It also supports converting Unicode characters:
+
+```ruby
+strings.snakecase("ЗдравствуйтеПривет")
 # => "здравствуйте_привет"
 ```
 
@@ -117,9 +145,30 @@ Here is a quick summary of available transformations:
 
 ## 2. API
 
-### 2.1 camelcase
+### 2.1 configure
 
-To convert a string into a camel case, that is, a case with all the words capitilized apart from the first one and compouned together without any space use `camelase` method. For example:
+To make acronyms available for all conversions, configure them once on an instance:
+
+```ruby
+strings = Strings::Case.new
+strings.configure do |config|
+  config.acronym "HTTP"
+  config.acronym "XML"
+
+  # or config.acronym "HTTP", "XML"
+end
+```
+
+This will result in a conversion preserving acronyms like so:
+
+```ruby
+strings.camelcase("xml_http_request")
+# => "XMLHTTPRequest"
+```
+
+### 2.2 camelcase
+
+To convert a string into a camel case, that is, a case with all the words capitilized apart from the first one and compouned together without any space use `camelcase` method. For example:
 
 ```ruby
 Strings::Case.camelcase("HTTP Response Code")
@@ -133,7 +182,7 @@ Strings::Case.camelcase("HTTP Response Code", acronyms: ["HTTP"])
 # => "HTTPResponseCode"
 ```
 
-### 2.2 constcase
+### 2.3 constcase
 
 To convert a string into a constant case, that is, a case with all the words uppercased and separated by underscore character use `constcase`. For example:
 
@@ -142,7 +191,7 @@ Strings::Case.constcase("HTTP Response Code")
 # => "HTTP_RESPONSE_CODE"
 ```
 
-### 2.3 headercase
+### 2.4 headercase
 
 To covert a string into a header case, that is, a case with all the words capitalized and separated by a hypen use `headercase`. For example:
 
@@ -157,7 +206,7 @@ To preserve the acronyms use the `:acronyms` option:
 Strings::Case.headercase("HTTP Response Code", acronyms: ["HTTP"])
 # => "HTTP-Response-Code"
 ```
-### 2.4 kebabcase | dashcase
+### 2.5 kebabcase | dashcase
 
 To convert a string into a kebab case, that is, a case with all the words lowercased and separted by a dash, like a words kebabab on a skewer, use `kebabcase` or `dashcase` methods. For example:
 
@@ -174,7 +223,7 @@ Strings::Case.dashcase("HTTP Response Code", acronyms: ["HTTP"])
 expect(dashed).to eq("HTTP-response-code")
 ```
 
-### 2.5 pascalcase
+### 2.6 pascalcase
 
 To convert a string into a pascal case, that is, a case with all the words capitilized and compounded together without a space, use `pascalcase` method. For example:
 
@@ -190,7 +239,7 @@ Strings::Case.pascalcase("HTTP Response Code")
 # => "HTTPResponseCode"
 ```
 
-### 2.6 pathcase
+### 2.7 pathcase
 
 To convert a string into a file path use `pathcase`:
 
@@ -206,14 +255,14 @@ Strings::Case.pathcase("HTTP Response Code", acronyms: ["HTTP"])
 # => "HTTP/response/code"
 ```
 
-By default the `/` is used as a path separator. To change this use a `:sep` option. For example, on Windows the file path separator is `\`:
+By default the `/` is used as a path separator. To change this use a `:separator` option. For example, on Windows the file path separator is `\`:
 
 ```ruby
 Strings::Case.pathcase("HTTP Response Code", separator: "\\")
 # => "http\response\code"
 ```
 
-### 2.7 `sentencecase`
+### 2.8 `sentencecase`
 
 To turn a string into a sentence use `sentencecase`:
 
@@ -229,7 +278,7 @@ Strings::Case.sentencecase("HTTP Response Code", acronyms: ["HTTP"])
 # => "HTTP response code"
 ```
 
-### 2.8 `snakecase` | `underscore`
+### 2.9 `snakecase` | `underscore`
 
 To convert a string into a snake case by lowercasing all the characters and separating them with an `_` use `snakecase` or `underscore` methods. For example:
 
@@ -245,7 +294,7 @@ Strings::Case.snakecase("HTTP Response Code", acronyms: ["HTTP"])
 # => "HTTP_response_code"
 ```
 
-### 2.9 `titlecase`
+### 2.10 `titlecase`
 
 To convert a string into a space delimited words that have their first letter capitalized use `titlecase`. For example:
 
