@@ -10,6 +10,7 @@
 * Change all conversions to apply acronyms configured on an instance
 * Change all conversions to preserve non-alphanumeric characters
 * Change all conversions to allow for one-letter words
+* Change gemspec to only package the source files and documentation
 
 ## [v0.3.0] - 2019-12-07
 
