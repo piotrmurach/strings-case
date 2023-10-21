@@ -9,14 +9,12 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/yr87c96wxp1cw2ep?svg=true)][appveyor]
 [![Maintainability](https://api.codeclimate.com/v1/badges/7938258c4af196a19843/maintainability)][codeclimate]
 [![Coverage Status](https://coveralls.io/repos/github/piotrmurach/strings-case/badge.svg?branch=master)][coverage]
-[![Inline docs](http://inch-ci.org/github/piotrmurach/strings-case.svg?branch=master)][inchpages]
 
 [gem]: http://badge.fury.io/rb/strings-case
 [gh_actions_ci]: https://github.com/piotrmurach/strings-case/actions/workflows/ci.yml
 [appveyor]: https://ci.appveyor.com/project/piotrmurach/strings-case
 [codeclimate]: https://codeclimate.com/github/piotrmurach/strings-case/maintainability
 [coverage]: https://coveralls.io/github/piotrmurach/strings-case?branch=master
-[inchpages]: http://inch-ci.org/github/piotrmurach/strings-case
 
 > Convert strings to different cases.
 
