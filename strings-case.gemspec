@@ -7,8 +7,8 @@ Gem::Specification.new do |spec|
   spec.version       = Strings::Case::VERSION
   spec.authors       = ["Piotr Murach"]
   spec.email         = ["piotr@piotrmurach.com"]
-  spec.summary       = %q{Convert strings to different cases}
-  spec.description   = %q{Convert strings to different cases}
+  spec.summary       = "Convert strings to different cases"
+  spec.description   = "Convert strings to different cases"
   spec.homepage      = "https://github.com/piotrmurach/strings-case"
   spec.license       = "MIT"
 
@@ -17,9 +17,10 @@ Gem::Specification.new do |spec|
   spec.metadata["changelog_uri"] = "https://github.com/piotrmurach/strings-case/blob/master/CHANGELOG.md"
   spec.metadata["documentation_uri"] = "https://www.rubydoc.info/gems/strings-case"
   spec.metadata["homepage_uri"] = spec.homepage
+  spec.metadata["rubygems_mfa_required"] = "true"
   spec.metadata["source_code_uri"] = "https://github.com/piotrmurach/strings-case"
 
-  spec.files         = Dir["lib/**/*"]
+  spec.files = Dir["lib/**/*"]
   spec.extra_rdoc_files = ["README.md", "CHANGELOG.md", "LICENSE.txt"]
   spec.require_paths = ["lib"]
   spec.required_ruby_version = ">= 2.0.0"
