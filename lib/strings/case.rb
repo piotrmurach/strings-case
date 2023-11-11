@@ -265,17 +265,9 @@ module Strings
     def parsecase(string, acronyms: nil, sep: "_", &conversion)
       return if string.nil?
 
-      word_conversion =
-        if conversion && conversion.arity <= 1
-          ->(word, _) { conversion.(word) }
-        elsif conversion
-          ->(word, idx) { conversion.(word, idx) }
-        else
-          ->(word, _) { word }
-        end
-
+      none_or_index = conversion.arity <= 1 ? :map : :with_index
       split_into_words(string, acronyms: acronyms, sep: sep)
-        .map.with_index(&word_conversion).join(sep)
+        .map.send(none_or_index, &conversion).join(sep)
     end
 
     # Split string into words

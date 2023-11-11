@@ -6,15 +6,15 @@ require "active_support"
 RSpec.describe Strings::Case do
   include RSpec::Benchmark::Matchers
 
-  it "changes case 3x slower than ActiveSupport" do
+  it "changes case 2.85x slower than ActiveSupport" do
     expect {
       Strings::Case.snakecase("fooBarBaz")
     }.to perform_slower_than {
       ActiveSupport::Inflector.underscore("fooBarBaz")
-    }.at_most(3).times
+    }.at_most(2.85).times
   end
 
-  it "changes case with acronyms 1.4x slower than ActiveSupport" do
+  it "changes case with acronyms 1.3x slower than ActiveSupport" do
     strings = Strings::Case.new
 
     strings.configure do |config|
@@ -29,7 +29,7 @@ RSpec.describe Strings::Case do
       strings.snakecase("fooBarBaz")
     }.to perform_slower_than {
       ActiveSupport::Inflector.underscore("fooBarBaz")
-    }.at_most(1.4).times
+    }.at_most(1.3).times
   end
 
   it "allocates no more than 34 objects" do
