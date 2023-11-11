@@ -157,7 +157,13 @@ strings.configure do |config|
 end
 ```
 
-This will result in a conversion preserving acronyms like so:
+Alternatively, use the `configure` with the `acronyms` keyword:
+
+```ruby
+strings.configure(acronyms: %w[HTTP XML])
+```
+
+This will result in a conversion preserving acronyms:
 
 ```ruby
 strings.camelcase("xml_http_request")

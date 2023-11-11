@@ -47,11 +47,24 @@ module Strings
     #     config.acronym "HTTP"
     #   end
     #
-    # @yield [Configuration]
+    # @example
+    #   strings = Strings::Case.new
+    #   strings.configure(acronyms: %w[HTTP XML])
+    #
+    # @param [Array<String>] acronyms
+    #   the acronyms to use to prevent modifications
+    #
+    # @yield [Strings::Case::Configuration]
+    #
+    # @return [void]
     #
     # @api public
-    def configure
-      yield config
+    def configure(acronyms: nil)
+      if block_given?
+        yield config
+      else
+        config.acronym(*acronyms)
+      end
     end
 
     # Convert string to camel case:
