@@ -4,16 +4,24 @@ require_relative "acronyms"
 
 module Strings
   class Case
-    # A configuration object used by a Strings::Case instance
+    # Responsible for storing acronyms configuration
     #
     # @api private
     class Configuration
       # All the registered acronyms
       #
+      # @example
+      #   configuration.acronyms
+      #
+      # @return [Strings::Case::Acronyms]
+      #
       # @api public
       attr_reader :acronyms
 
-      # Create a configuration
+      # Create a Configuration instance
+      #
+      # @example
+      #   configuration = Strings::Case::Cofiguration.new
       #
       # @api public
       def initialize
@@ -24,11 +32,9 @@ module Strings
       #
       # @example
       #   strings = Strings::Case.new
-      #
-      #   cases.configure do |config|
+      #   strings.configure do |config|
       #     config.acronym "HTTP"
       #   end
-      #
       #   strings.pascalcase("http_response")    # => "HTTPResponse"
       #   strings.camelcase("http_response")     # => "HTTPResponse"
       #   strings.snakecase("HTTPResponse")      # => "http_response"
@@ -37,6 +43,8 @@ module Strings
       #
       # @param [Array<String>] names
       #   the names to add to the acronyms list
+      #
+      # @return [void]
       #
       # @api public
       def acronym(*names)
