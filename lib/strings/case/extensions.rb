@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "../case"
+
 module Strings
   class Case
     module Extensions

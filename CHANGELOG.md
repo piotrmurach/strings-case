@@ -12,6 +12,7 @@
 * Change all conversions to allow for one-letter words
 * Change gemspec to only package the source files and documentation
 * Change parsecase method to improve performance
+* Change extensions to require core library when loaded
 
 ## [v0.3.0] - 2019-12-07
 

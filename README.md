@@ -348,7 +348,8 @@ using MyStringExt
 # => "foo_bar_baz"
 ```
 
-However, if you want to include all the **Strings::Case** methods, you can use provided extensions file:
+Alternatively, to include all the **Strings::Case** methods, load extensions
+in the following way:
 
 ```ruby
 require "strings/case/extensions"
