@@ -2,55 +2,76 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 2.0
 
+Gemspec/DevelopmentDependencies:
+  Enabled: false
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
 Layout/LineLength:
   Max: 80
+
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
 
 Lint/AssignmentInCondition:
   Enabled: false
 
 Metrics/AbcSize:
-  Max: 35
+  AllowedMethods:
+    - split_into_words
 
 Metrics/BlockLength:
-  CountComments: true
-  Max: 32
-  IgnoredMethods: []
   Exclude:
-    - "spec/**/*"
+    - "**/spec/**/*"
+    - "**/*.gemspec"
 
 Metrics/ClassLength:
-  Max: 1500
+  Max: 150
 
 Metrics/CyclomaticComplexity:
-  Enabled: false
+  AllowedMethods:
+    - split_into_words
 
 Metrics/MethodLength:
-  Max: 20
+  AllowedMethods:
+    - split_into_words
 
-Naming/BinaryOperatorParameterName:
+Metrics/PerceivedComplexity:
+  Max: 5
+  AllowedMethods:
+    - split_into_words
+
+Naming/FileName:
+  Exclude:
+    - "lib/strings-case.rb"
+
+Style/BlockDelimiters:
+  AllowedMethods:
+    - expect
+    - let
+
+Style/CommentedKeyword:
   Enabled: false
 
-Style/AccessorGrouping:
-  Enabled: false
-
-Style/AsciiComments:
-  Enabled: false
-
-Style/LambdaCall:
-  EnforcedStyle: braces
+Style/FetchEnvVar:
+  AllowedVars:
+    - COVERAGE
 
 Style/FormatString:
   EnforcedStyle: percent
 
+Style/NegatedWhile:
+  Enabled: false
+
+Style/ParallelAssignment:
+  Enabled: false
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
-Style/TrivialAccessors:
-  Enabled: false
-
-# { ... } for multi-line blocks is okay
-Style/BlockDelimiters:
-  Enabled: false
-
-Style/CommentedKeyword:
-  Enabled: false
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
