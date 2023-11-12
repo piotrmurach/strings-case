@@ -14,6 +14,7 @@
 * Change parsecase method to improve performance
 * Change extensions to require core library when loaded
 * Change Strings::Case class to hide constants
+* Change Strings::Case class to hide instance method
 
 ## [v0.3.0] - 2019-12-07
 

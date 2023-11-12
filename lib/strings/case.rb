@@ -49,6 +49,7 @@ module Strings
     def self.__instance__
       @__instance__ ||= Case.new
     end
+    private_class_method :__instance__
 
     class << self
       extend Forwardable
