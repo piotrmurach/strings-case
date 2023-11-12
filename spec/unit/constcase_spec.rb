@@ -85,14 +85,21 @@ RSpec.describe Strings::Case, "#constcase" do
     end
   end
 
-  it "overrides global configuration on an instance method" do
-    strings = Strings::Case.new
+  it "overrides global acronyms in a method call" do
+    strings = described_class.new
     strings.configure do |config|
       config.acronym "DOM"
       config.acronym "XPath"
     end
-
     constant = strings.constcase("DOMXPathElement", acronyms: %w[XML])
+
+    expect(constant).to eq("DOMX_PATH_ELEMENT")
+  end
+
+  it "overrides global acronyms with an empty array in a method call" do
+    strings = described_class.new(acronyms: %w[DOM XPath])
+    constant = strings.constcase("DOMXPathElement", acronyms: [])
+
     expect(constant).to eq("DOMX_PATH_ELEMENT")
   end
 end

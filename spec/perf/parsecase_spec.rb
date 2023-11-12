@@ -32,9 +32,9 @@ RSpec.describe Strings::Case do
     }.at_most(1.3).times
   end
 
-  it "allocates no more than 34 objects" do
+  it "allocates no more than 35 objects" do
     expect {
       Strings::Case.snakecase("fooBarBaz")
-    }.to perform_allocation(34).objects
+    }.to perform_allocation(35).objects
   end
 end

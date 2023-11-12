@@ -88,13 +88,20 @@ RSpec.describe Strings::Case, "#sentencecase" do
     end
   end
 
-  it "overrides global acronyms configuration" do
-    strings = Strings::Case.new
+  it "overrides global acronyms in a method call" do
+    strings = described_class.new
     strings.configure do |config|
       config.acronym "HTTP"
     end
-
     sentence = strings.sentencecase("HTTP response code", acronyms: %w[XML])
+
+    expect(sentence).to eq("Http response code")
+  end
+
+  it "overrides global acronyms with an empty array in a method call" do
+    strings = described_class.new(acronyms: %w[HTTP])
+    sentence = strings.sentencecase("HTTP response code", acronyms: [])
+
     expect(sentence).to eq("Http response code")
   end
 end

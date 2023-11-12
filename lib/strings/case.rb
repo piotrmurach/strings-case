@@ -96,8 +96,8 @@ module Strings
     #   the separator for linking words, by default none
     #
     # @api public
-    def camelcase(string, acronyms: [], separator: "")
-      acronyms = acronyms.empty? ? config.acronyms : Acronyms.from(acronyms)
+    def camelcase(string, acronyms: config.acronyms, separator: "")
+      acronyms = Acronyms.from(acronyms)
       parsecase(string, acronyms: acronyms, sep: separator) do |word, i|
         acronyms.fetch(word) || (i.zero? ? word.downcase : word.capitalize)
       end
@@ -117,8 +117,8 @@ module Strings
     #   the words separator, by default "_"
     #
     # @api public
-    def constcase(string, acronyms: [], separator: "_")
-      acronyms = acronyms.empty? ? config.acronyms : Acronyms.from(acronyms)
+    def constcase(string, acronyms: config.acronyms, separator: "_")
+      acronyms = Acronyms.from(acronyms)
       parsecase(string, acronyms: acronyms, sep: separator, &:upcase)
     end
     alias constantcase constcase
@@ -136,8 +136,8 @@ module Strings
     #   the words separator, by default "-"
     #
     # @api public
-    def headercase(string, acronyms: [], separator: "-")
-      acronyms = acronyms.empty? ? config.acronyms : Acronyms.from(acronyms)
+    def headercase(string, acronyms: config.acronyms, separator: "-")
+      acronyms = Acronyms.from(acronyms)
       parsecase(string, acronyms: acronyms, sep: separator) do |word|
         (acronym = acronyms.fetch(word)) ? acronym : word.capitalize
       end
@@ -160,8 +160,8 @@ module Strings
     # @return [String]
     #
     # @api public
-    def kebabcase(string, acronyms: [], separator: "-")
-      acronyms = acronyms.empty? ? config.acronyms : Acronyms.from(acronyms)
+    def kebabcase(string, acronyms: config.acronyms, separator: "-")
+      acronyms = Acronyms.from(acronyms)
       parsecase(string, acronyms: acronyms, sep: separator, &:downcase)
     end
     alias dashcase kebabcase
@@ -181,8 +181,8 @@ module Strings
     #   the separator for linking words, by default none
     #
     # @api public
-    def pascalcase(string, acronyms: [], separator: "")
-      acronyms = acronyms.empty? ? config.acronyms : Acronyms.from(acronyms)
+    def pascalcase(string, acronyms: config.acronyms, separator: "")
+      acronyms = Acronyms.from(acronyms)
       parsecase(string, acronyms: acronyms, sep: separator) do |word|
         acronyms.fetch(word) || word.capitalize
       end
@@ -206,8 +206,8 @@ module Strings
     #   the separator for linking words, by default `/`
     #
     # @api public
-    def pathcase(string, acronyms: [], separator: "/")
-      acronyms = acronyms.empty? ? config.acronyms : Acronyms.from(acronyms)
+    def pathcase(string, acronyms: config.acronyms, separator: "/")
+      acronyms = Acronyms.from(acronyms)
       parsecase(string, acronyms: acronyms, sep: separator, &:downcase)
     end
 
@@ -224,8 +224,8 @@ module Strings
     #   the separator for linking words, by default a space
     #
     # @api public
-    def sentencecase(string, acronyms: [], separator: " ")
-      acronyms = acronyms.empty? ? config.acronyms : Acronyms.from(acronyms)
+    def sentencecase(string, acronyms: config.acronyms, separator: " ")
+      acronyms = Acronyms.from(acronyms)
       parsecase(string, acronyms: acronyms, sep: separator) do |word, i|
         acronyms.fetch(word) || (i.zero? ? word.capitalize : word.downcase)
       end
@@ -248,8 +248,8 @@ module Strings
     #   the separator for linking words, by default `_`
     #
     # @api public
-    def snakecase(string, acronyms: [], separator: "_")
-      acronyms = acronyms.empty? ? config.acronyms : Acronyms.from(acronyms)
+    def snakecase(string, acronyms: config.acronyms, separator: "_")
+      acronyms = Acronyms.from(acronyms)
       parsecase(string, acronyms: acronyms, sep: separator, &:downcase)
     end
     alias underscore snakecase
@@ -267,8 +267,8 @@ module Strings
     #   the separator for linking words, by default a space
     #
     # @api public
-    def titlecase(string, acronyms: [], separator: " ")
-      acronyms = acronyms.empty? ? config.acronyms : Acronyms.from(acronyms)
+    def titlecase(string, acronyms: config.acronyms, separator: " ")
+      acronyms = Acronyms.from(acronyms)
       parsecase(string, acronyms: acronyms, sep: separator) do |word|
         acronyms.fetch(word) || word.capitalize
       end

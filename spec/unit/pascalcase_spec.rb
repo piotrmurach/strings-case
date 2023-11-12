@@ -89,13 +89,20 @@ RSpec.describe Strings::Case, "#pascalcase" do
     end
   end
 
-  it "overrides global configuration on an instance method" do
-    strings = Strings::Case.new
+  it "overrides global acronyms in a method call" do
+    strings = described_class.new
     strings.configure do |config|
       config.acronym "HTTP"
     end
-
     pascalized = strings.pascalcase("HTTP response code", acronyms: %w[XML])
+
+    expect(pascalized).to eq("HttpResponseCode")
+  end
+
+  it "overrides global acronyms with an empty array in a method call" do
+    strings = described_class.new(acronyms: %w[HTTP])
+    pascalized = strings.pascalcase("HTTP response code", acronyms: [])
+
     expect(pascalized).to eq("HttpResponseCode")
   end
 end

@@ -89,13 +89,20 @@ RSpec.describe Strings::Case, "#camelcase" do
     end
   end
 
-  it "overrides global configuration on an instance method" do
-    strings = Strings::Case.new
+  it "overrides global acronyms in a method call" do
+    strings = described_class.new
     strings.configure do |config|
       config.acronym "HTTP"
     end
-
     camelized = strings.camelcase("HTTP response code", acronyms: %w[XML])
+
+    expect(camelized).to eq("httpResponseCode")
+  end
+
+  it "overrides global acronyms with an empty array in a method call" do
+    strings = described_class.new(acronyms: %w[HTTP])
+    camelized = strings.camelcase("HTTP response code", acronyms: [])
+
     expect(camelized).to eq("httpResponseCode")
   end
 end
