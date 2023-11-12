@@ -8,6 +8,9 @@ require_relative "case/configuration"
 require_relative "case/version"
 
 module Strings
+  # Responsible for converting strings to common cases
+  #
+  # @api public
   class Case
     # The word delimiters
     #
@@ -45,6 +48,8 @@ module Strings
 
     # Global instance
     #
+    # @return [Strings::Case]
+    #
     # @api private
     def self.__instance__
       @__instance__ ||= Case.new
@@ -74,6 +79,11 @@ module Strings
     end
 
     # Access configuration
+    #
+    # @example
+    #   strings.config
+    #
+    # @return [Strings::Case::Configuration]
     #
     # @api public
     def config
@@ -108,7 +118,8 @@ module Strings
       end
     end
 
-    # Convert string to camel case:
+    # Convert string to camel case
+    #
     # * start with a lowercase character
     # * every subsequent word has its first character uppercased
     # * all words are compounded together
@@ -118,10 +129,12 @@ module Strings
     #
     # @param [String] string
     #   the string to camelcase
-    # @param [Array[String]] acronyms
+    # @param [Array<String>] acronyms
     #   the acronyms to use to prevent modifications
     # @param [String] separator
     #   the separator for linking words, by default none
+    #
+    # @return [String]
     #
     # @api public
     def camelcase(string, acronyms: config.acronyms, separator: "")
@@ -132,17 +145,19 @@ module Strings
     end
     alias lower_camelcase camelcase
 
-    # Convert string to a constant
+    # Convert string to constant case
     #
     # @example
     #   constantcase("foo bar baz") # => "FOO_BAR_BAZ"
     #
     # @param [String] string
     #   the string to turn into constant
-    # @param [Array[String]] acronyms
+    # @param [Array<String>] acronyms
     #   the acronyms to use to prevent modifications
     # @param [String] separator
     #   the words separator, by default "_"
+    #
+    # @return [String]
     #
     # @api public
     def constcase(string, acronyms: config.acronyms, separator: "_")
@@ -151,17 +166,19 @@ module Strings
     end
     alias constantcase constcase
 
-    # Convert string to a HTTP Header
+    # Convert string to an HTTP header
     #
     # @example
     #   headercase("foo bar baz") # = "Foo-Bar-Baz"
     #
     # @param [String] string
     #   the string to turn into header
-    # @param [Array[String]] acronyms
+    # @param [Array<String>] acronyms
     #   the acronyms to use to prevent modifications
     # @param [String] separator
     #   the words separator, by default "-"
+    #
+    # @return [String]
     #
     # @api public
     def headercase(string, acronyms: config.acronyms, separator: "-")
@@ -171,7 +188,7 @@ module Strings
       end
     end
 
-    # Converts string to lower case words linked by hyphenes
+    # Convert string to lowercase words linked by hyphens
     #
     # @example
     #   kebabcase("fooBarBaz") # => "foo-bar-baz"
@@ -180,7 +197,7 @@ module Strings
     #
     # @param [String] string
     #   the string to convert to dashed string
-    # @param [Array[String]] acronyms
+    # @param [Array<String>] acronyms
     #   the acronyms to use to prevent modifications
     # @param [String] separator
     #   the separator for linking words, by default hyphen
@@ -194,7 +211,8 @@ module Strings
     end
     alias dashcase kebabcase
 
-    # Convert string to pascal case:
+    # Convert string to pascal case
+    #
     # * every word has its first character uppercased
     # * all words are compounded together
     #
@@ -203,10 +221,12 @@ module Strings
     #
     # @param [String] string
     #   the string to convert to camel case with capital letter
-    # @param [Array[String]] acronyms
+    # @param [Array<String>] acronyms
     #   the acronyms to use to prevent modifications
     # @param [String] separator
     #   the separator for linking words, by default none
+    #
+    # @return [String]
     #
     # @api public
     def pascalcase(string, acronyms: config.acronyms, separator: "")
@@ -217,7 +237,7 @@ module Strings
     end
     alias upper_camelcase pascalcase
 
-    # Convert string into a file path.
+    # Convert string to file path case
     #
     # By default uses `/` as a path separator.
     #
@@ -228,10 +248,12 @@ module Strings
     #
     # @param [String] string
     #   the string to convert to file path
-    # @param [Array[String]] acronyms
+    # @param [Array<String>] acronyms
     #   the acronyms to use to prevent modifications
     # @param [String] separator
     #   the separator for linking words, by default `/`
+    #
+    # @return [String]
     #
     # @api public
     def pathcase(string, acronyms: config.acronyms, separator: "/")
@@ -239,17 +261,19 @@ module Strings
       parsecase(string, acronyms: acronyms, sep: separator, &:downcase)
     end
 
-    # Convert string into a sentence
+    # Convert string to sentence case
     #
     # @example
     #   sentencecase("foo bar baz") # => "Foo bar baz"
     #
     # @param [String] string
     #   the string to convert to sentence
-    # @param [Array[String]] acronyms
+    # @param [Array<String>] acronyms
     #   the acronyms to use to prevent modifications
     # @param [String] separator
     #   the separator for linking words, by default a space
+    #
+    # @return [String]
     #
     # @api public
     def sentencecase(string, acronyms: config.acronyms, separator: " ")
@@ -259,21 +283,25 @@ module Strings
       end
     end
 
-    # Convert string into a snake_case
+    # Convert string to snake case
     #
     # @example
     #   snakecase("foo bar baz") # => "foo_bar_baz"
     #
+    # @example
     #   snakecase("ЗдравствуйтеПривет") # => "здравствуйте_привет"
     #
+    # @example
     #   snakecase("HTTPResponse") # => "http_response"
     #
     # @param [String] string
     #   the string to convert to snake case
-    # @param [Array[String]] acronyms
+    # @param [Array<String>] acronyms
     #   the acronyms to use to prevent modifications
     # @param [String] separator
     #   the separator for linking words, by default `_`
+    #
+    # @return [String]
     #
     # @api public
     def snakecase(string, acronyms: config.acronyms, separator: "_")
@@ -282,17 +310,19 @@ module Strings
     end
     alias underscore snakecase
 
-    # Convert string into a title
+    # Convert string to title case
     #
     # @example
     #   titlecase("foo bar baz") # => "Foo Bar Baz"
     #
     # @param [String] string
     #   the string to convert to title case
-    # @param [Array[String]] acronyms
+    # @param [Array<String>] acronyms
     #   the acronyms to use to prevent modifications
     # @param [String] separator
     #   the separator for linking words, by default a space
+    #
+    # @return [String]
     #
     # @api public
     def titlecase(string, acronyms: config.acronyms, separator: " ")
@@ -308,12 +338,14 @@ module Strings
     #
     # @param [String] string
     #   the string to convert to a given case
-    # @param [Acronyms] acronyms
+    # @param [Strings::Case::Acronyms] acronyms
     #   the acronyms to use to parse words
     # @param [String] sep
     #   the separator for linking words, defaults to `_`
     #
     # @yield [word, index]
+    #
+    # @return [String]
     #
     # @api private
     def parsecase(string, acronyms: nil, sep: "_", &conversion)
@@ -328,12 +360,12 @@ module Strings
     #
     # @param [String] string
     #   the string to split into words
-    # @param [Acronyms] acronyms
+    # @param [Strings::Case::Acronyms] acronyms
     #   the acronyms to use to split words
     # @param [String] sep
     #   the separator to use to split words
     #
-    # @return [Array[String]]
+    # @return [Array<String>]
     #   the split words
     #
     # @api private
