@@ -9,10 +9,37 @@ require_relative "case/version"
 
 module Strings
   class Case
+    # The word delimiters
+    #
+    # @return [Array<String>]
+    #
+    # @api private
     DELIMITERS = [" ", "\n", "\t", "_", ".", "-", "#", "?", "!"].freeze
+    private_constant :DELIMITERS
+
+    # The pattern to detect word delimiters
+    #
+    # @return [Regexp]
+    #
+    # @api private
     DELIMS = Regexp.union(DELIMITERS)
+    private_constant :DELIMS
+
+    # The pattern to detect uppercase characters
+    #
+    # @return [Regexp]
+    #
+    # @api private
     UPPERCASE = /^(\p{Ll}|\p{Digit})\p{Lu}/.freeze
+    private_constant :UPPERCASE
+
+    # The pattern to detect lowercase characters
+    #
+    # @return [Regexp]
+    #
+    # @api private
     LOWERCASE = /\p{Lu}(?=\p{Ll})/.freeze
+    private_constant :LOWERCASE
 
     class Error < StandardError; end
 

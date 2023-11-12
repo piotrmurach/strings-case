@@ -13,6 +13,7 @@
 * Change gemspec to only package the source files and documentation
 * Change parsecase method to improve performance
 * Change extensions to require core library when loaded
+* Change Strings::Case class to hide constants
 
 ## [v0.3.0] - 2019-12-07
 
