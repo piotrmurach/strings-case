@@ -29,38 +29,40 @@ RSpec.describe Strings::Case, "#camelcase" do
     "supports IPv6 on iOS?" => "supportsIPv6OnIOs"
   }.each do |actual, expected|
     it "applies camelcase to #{actual.inspect} -> #{expected.inspect}" do
-      expect(Strings::Case.camelcase(actual)).to eq(expected)
+      expect(described_class.camelcase(actual)).to eq(expected)
     end
   end
 
   it "supports unicode", if: modern_ruby? do
-    expect(Strings::Case.camelcase("ЗдравствуйтеПривет")).to eq("здравствуйтеПривет")
+    camelized = described_class.camelcase("ЗдравствуйтеПривет")
+
+    expect(camelized).to eq("здравствуйтеПривет")
   end
 
   it "changes a separator to :" do
-    camelized = Strings::Case.camelcase("HTTP response code", separator: ":")
+    camelized = described_class.camelcase("HTTP response code", separator: ":")
 
     expect(camelized).to eq("http:Response:Code")
   end
 
   it "configures acronyms on a class method" do
-    camelized = Strings::Case.lower_camelcase("HTTP response code",
-                                              acronyms: ["HTTP"])
+    camelized = described_class.lower_camelcase("HTTP response code",
+                                                acronyms: ["HTTP"])
 
     expect(camelized).to eq("HTTPResponseCode")
   end
 
   it "configures acronyms on an instance method" do
-    strings = Strings::Case.new
+    strings = described_class.new
     camelized = strings.camelcase("HTTP response code", acronyms: %w[HTTP])
 
     expect(camelized).to eq("HTTPResponseCode")
   end
 
-  context "configures acronyms on an instance" do
+  context "with acronyms configured on an instance" do
     let(:acronyms) { %w[HTTP XML PostgreSQL SQL DOM XPath] }
     let(:strings) {
-      Strings::Case.new.tap do |strings|
+      described_class.new.tap do |strings|
         strings.configure do |config|
           config.acronym(*acronyms)
         end

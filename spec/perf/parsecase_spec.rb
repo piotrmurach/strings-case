@@ -7,15 +7,17 @@ RSpec.describe Strings::Case do
   include RSpec::Benchmark::Matchers
 
   it "changes case 2.85x slower than ActiveSupport" do
+    strings_case_class = described_class
+
     expect {
-      Strings::Case.snakecase("fooBarBaz")
+      strings_case_class.snakecase("fooBarBaz")
     }.to perform_slower_than {
       ActiveSupport::Inflector.underscore("fooBarBaz")
     }.at_most(2.85).times
   end
 
   it "changes case with acronyms 1.3x slower than ActiveSupport" do
-    strings = Strings::Case.new
+    strings = described_class.new
 
     strings.configure do |config|
       config.acronym "fooBar"
@@ -34,7 +36,7 @@ RSpec.describe Strings::Case do
 
   it "allocates no more than 35 objects" do
     expect {
-      Strings::Case.snakecase("fooBarBaz")
+      described_class.snakecase("fooBarBaz")
     }.to perform_allocation(35).objects
   end
 end

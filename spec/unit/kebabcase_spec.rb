@@ -26,37 +26,40 @@ RSpec.describe Strings::Case, "#kebabcase" do
     "supports IPv6 on iOS?" => "supports-i-pv6-on-i-os"
   }.each do |actual, expected|
     it "applies kebabcase from #{actual.inspect} to #{expected.inspect}" do
-      expect(Strings::Case.kebabcase(actual)).to eq(expected)
+      expect(described_class.kebabcase(actual)).to eq(expected)
     end
   end
 
   it "supports unicode", if: modern_ruby? do
-    expect(Strings::Case.kebabcase("ЗдравствуйтеПривет")).to eq("здравствуйте-привет")
+    dashed = described_class.kebabcase("ЗдравствуйтеПривет")
+
+    expect(dashed).to eq("здравствуйте-привет")
   end
 
   it "changes a separator to :" do
-    dashed = Strings::Case.kebabcase("HTTP response code", separator: ":")
+    dashed = described_class.kebabcase("HTTP response code", separator: ":")
 
     expect(dashed).to eq("http:response:code")
   end
 
   it "configures acronyms on a class method" do
-    dashed = Strings::Case.dashcase("DOMXPathElement", acronyms: %w[DOM XPath])
+    dashed = described_class.dashcase("DOMXPathElement",
+                                      acronyms: %w[DOM XPath])
 
     expect(dashed).to eq("dom-xpath-element")
   end
 
   it "configures acronyms on an instance method" do
-    strings = Strings::Case.new
+    strings = described_class.new
     dashed = strings.kebabcase("DOMXPathElement", acronyms: %w[DOM XPath])
 
     expect(dashed).to eq("dom-xpath-element")
   end
 
-  context "configures acronyms on an instance" do
+  context "with acronyms configured on an instance" do
     let(:acronyms) { %w[HTTP XML PostgreSQL SQL XPath DOM] }
     let(:strings) {
-      Strings::Case.new.tap do |strings|
+      described_class.new.tap do |strings|
         strings.configure do |config|
           config.acronym(*acronyms)
         end

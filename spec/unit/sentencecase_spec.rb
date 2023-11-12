@@ -29,37 +29,41 @@ RSpec.describe Strings::Case, "#sentencecase" do
     "supports IPv6 on iOS?" => "Supports i pv6 on i os"
   }.each do |actual, expected|
     it "applies sentencecase to #{actual.inspect} -> #{expected.inspect}" do
-      expect(Strings::Case.sentencecase(actual)).to eq(expected)
+      expect(described_class.sentencecase(actual)).to eq(expected)
     end
   end
 
   it "supports unicode", if: modern_ruby? do
-    expect(Strings::Case.sentencecase("ЗдравствуйтеПривет")).to eq("Здравствуйте привет")
+    sentence = described_class.sentencecase("ЗдравствуйтеПривет")
+
+    expect(sentence).to eq("Здравствуйте привет")
   end
 
   it "changes a separator to :" do
-    sentence = Strings::Case.sentencecase("HTTP response code", separator: ":")
+    sentence = described_class.sentencecase("HTTP response code",
+                                            separator: ":")
 
     expect(sentence).to eq("Http:response:code")
   end
 
   it "configures acronyms on a class method" do
-    sentence = Strings::Case.sentencecase("HTTP response code", acronyms: ["HTTP"])
+    sentence = described_class.sentencecase("HTTP response code",
+                                            acronyms: ["HTTP"])
 
     expect(sentence).to eq("HTTP response code")
   end
 
   it "configures acronyms on an instance method" do
-    strings = Strings::Case.new
+    strings = described_class.new
     sentence = strings.sentencecase("HTTP response code", acronyms: %w[HTTP])
 
     expect(sentence).to eq("HTTP response code")
   end
 
-  context "configures acronyms on an instance" do
+  context "with acronyms configured on an instance" do
     let(:acronyms) { %w[HTTP XML PostgreSQL SQL DOM XPath] }
     let(:strings) {
-      Strings::Case.new.tap do |strings|
+      described_class.new.tap do |strings|
         strings.configure do |config|
           config.acronym(*acronyms)
         end

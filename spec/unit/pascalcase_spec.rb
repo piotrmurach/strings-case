@@ -29,38 +29,41 @@ RSpec.describe Strings::Case, "#pascalcase" do
     "supports IPv6 on iOS?" => "SupportsIPv6OnIOs"
   }.each do |actual, expected|
     it "applies pascalcase to #{actual.inspect} -> #{expected.inspect}" do
-      expect(Strings::Case.pascalcase(actual)).to eq(expected)
+      expect(described_class.pascalcase(actual)).to eq(expected)
     end
   end
 
   it "supports unicode", if: modern_ruby? do
-    expect(Strings::Case.pascalcase("ЗдравствуйтеПривет")).to eq("ЗдравствуйтеПривет")
+    pascalized = described_class.pascalcase("ЗдравствуйтеПривет")
+
+    expect(pascalized).to eq("ЗдравствуйтеПривет")
   end
 
   it "changes a separator to :" do
-    pascalized = Strings::Case.pascalcase("HTTP response code", separator: ":")
+    pascalized = described_class.pascalcase("HTTP response code",
+                                            separator: ":")
 
     expect(pascalized).to eq("Http:Response:Code")
   end
 
   it "configures acronyms on a class method" do
-    pascalized = Strings::Case.upper_camelcase("HTTP response code",
-                                               acronyms: ["HTTP"])
+    pascalized = described_class.upper_camelcase("HTTP response code",
+                                                 acronyms: ["HTTP"])
 
     expect(pascalized).to eq("HTTPResponseCode")
   end
 
   it "configures acronyms on an instance method" do
-    strings = Strings::Case.new
+    strings = described_class.new
     pascalized = strings.pascalcase("HTTP response code", acronyms: %w[HTTP])
 
     expect(pascalized).to eq("HTTPResponseCode")
   end
 
-  context "configures acronyms on an instance" do
+  context "with acronyms configured on an instance" do
     let(:acronyms) { %w[HTTP XML PostgreSQL SQL DOM XPath RESTful] }
     let(:strings) {
-      Strings::Case.new.tap do |strings|
+      described_class.new.tap do |strings|
         strings.configure do |config|
           config.acronym(*acronyms)
         end

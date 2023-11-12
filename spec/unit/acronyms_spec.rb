@@ -23,39 +23,65 @@ RSpec.describe Strings::Case::Acronyms do
     })
   end
 
-  it "adds and retrieves acronyms" do
+  it "doesn't retrieve an acronym" do
     acronyms = described_class.new
 
-    expect(acronyms.fetch("http")).to eq(nil)
+    expect(acronyms.fetch("http")).to be_nil
+  end
 
+  it "adds acronyms to the entries hash" do
+    acronyms = described_class.new
     acronyms.add("HTTP")
     acronyms.add("XML")
 
     expect(acronyms.entries).to eq({"http" => "HTTP", "xml" => "XML"})
+  end
+
+  it "retrieves an acronym with all lowercase characters" do
+    acronyms = described_class.new
+    acronyms.add("HTTP")
 
     expect(acronyms.fetch("http")).to eq("HTTP")
-    expect(acronyms.fetch("Xml")).to eq("XML")
   end
 
-  it "exposes a pattern that matches nothing by default" do
+  it "retrieves an acronym with mixed-case characters" do
     acronyms = described_class.new
+    acronyms.add("HTTP")
 
-    expect(acronyms.pattern).to_not match("")
-    expect(acronyms.pattern).to_not match(" ")
-    expect(acronyms.pattern).to_not match("!")
+    expect(acronyms.fetch("HtTp")).to eq("HTTP")
   end
 
-  it "compiles pattern to match registered acronyms" do
-    acronyms = described_class.from(%w[HTTP XML JSON])
+  ["", " ", "!"].each do |expected|
+    it "matches nothing by default including #{expected.inspect}" do
+      acronyms = described_class.new
 
-    expect(acronyms.pattern).to match("HTTP")
-    expect(acronyms.pattern).to match("HTTPXML")
-    expect(acronyms.pattern).to match("HTTPXMLJSON")
-    expect(acronyms.pattern).to match("HTTP XML")
+      expect(acronyms.pattern).not_to match(expected)
+    end
+  end
 
-    expect(acronyms.pattern).to_not match("HTTPs")
-    expect(acronyms.pattern).to_not match("http")
-    expect(acronyms.pattern).to_not match("httpxmljson")
-    expect(acronyms.pattern).to_not match("HTTPxml")
+  [
+    "HTTP",
+    "HTTPXML",
+    "HTTPXMLJSON",
+    "HTTP XML"
+  ].each do |expected|
+    it "matches #{expected.inspect} with registered acronyms" do
+      acronyms = described_class.from(%w[HTTP XML JSON])
+
+      expect(acronyms.pattern).to match(expected)
+    end
+  end
+
+  [
+    "HTTPs",
+    "http",
+    "httpxmljson",
+    "HTTPxml Json"
+  ].each do |expected|
+    it "doesn't match #{expected.inspect} with registered acronyms" do
+      acronyms = described_class.from(%w[HTTP XML JSON])
+
+      expect(acronyms.pattern).not_to match(expected)
+    end
   end
 end
