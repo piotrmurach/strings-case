@@ -8,8 +8,13 @@ module Strings
     class Acronyms
       # Create instance from an array of acronyms
       #
+      # @example
+      #   acronyms = Strings::Case::Acronyms.new(%w[HTTP XML])
+      #
       # @param [Array<String>, Strings::Case::Acronyms] acronyms
       #   the acronyms to add
+      #
+      # @return [Strings::Case::Acronyms]
       #
       # @api public
       def self.from(acronyms = [])
@@ -21,17 +26,28 @@ module Strings
       # Mappings of downcased string to an acronym
       #
       # @example
-      #   "http" => "HTTP"
+      #   acronyms.entries
+      #   # => {"http" => "HTTP"}
+      #
+      # @return [Hash{String => String}]
       #
       # @api private
       attr_reader :entries
 
       # A pattern
       #
+      # @example
+      #   acronyms.pattern
+      #
+      # @return [Regexp]
+      #
       # @api public
       attr_reader :pattern
 
-      # Create a collection of acronyms
+      # Create an Acronyms instance
+      #
+      # @example
+      #   acronyms = Strings::Case::Acronyms.new(%w[HTTP XML])
       #
       # @param [Array<String>] acronyms
       #   an array of acronyms
@@ -46,8 +62,16 @@ module Strings
 
       # Add an acronym
       #
+      # @example
+      #   acronyms.add("HTTP")
+      #
+      # @example
+      #   acronyms << "HTTP"
+      #
       # @param [String] string
       #   the string name to add to the acronyms
+      #
+      # @return [void]
       #
       # @api public
       def add(string)
@@ -58,8 +82,13 @@ module Strings
 
       # Find an acronym
       #
+      # @example
+      #   acronyms.fetch("http")
+      #
       # @param [String] string
       #   the string to search for an acronym
+      #
+      # @return [String]
       #
       # @api public
       def fetch(string)
@@ -67,6 +96,9 @@ module Strings
       end
 
       # Convert to an array of all acronyms
+      #
+      # @example
+      #   acronyms.to_a
       #
       # @return [Array<String>]
       #
