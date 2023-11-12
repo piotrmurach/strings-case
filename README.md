@@ -145,10 +145,19 @@ Here is a quick summary of available transformations:
 
 ### 2.1 configure
 
-To make acronyms available for all conversions, configure them once on an instance:
+To add acronyms for all case conversions, configure them at initialization
+with the `acronyms` keyword.
+
+For example, to add `HTTP` and `XML` acronyms:
 
 ```ruby
-strings = Strings::Case.new
+strings = Strings::Case.new(acronyms: %w[HTTP XML])
+```
+
+After initialization, use the `configure` to add acronyms with
+the `acronym` method:
+
+```ruby
 strings.configure do |config|
   config.acronym "HTTP"
   config.acronym "XML"

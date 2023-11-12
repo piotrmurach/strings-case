@@ -32,6 +32,19 @@ module Strings
                   titlecase underscore upper_camelcase] => :__instance__
     end
 
+    # Create a Strings::Case instance
+    #
+    # @example
+    #   strings = Strings::Case.new(acronyms: %w[HTTP XML])
+    #
+    # @param [Array<String>] acronyms
+    #   the acronyms to use to prevent modifications
+    #
+    # @api public
+    def initialize(acronyms: nil)
+      configure(acronyms: acronyms)
+    end
+
     # Access configuration
     #
     # @api public
