@@ -8,11 +8,13 @@ module Strings
     class Acronyms
       # Create instance from an array of acronyms
       #
-      # @param [Array<String>] acronyms
-      #   the array of acronyms to add
+      # @param [Array<String>, Strings::Case::Acronyms] acronyms
+      #   the acronyms to add
       #
       # @api public
       def self.from(acronyms = [])
+        return acronyms if acronyms.is_a?(self)
+
         new(acronyms)
       end
 

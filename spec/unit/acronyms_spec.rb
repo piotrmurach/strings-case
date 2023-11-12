@@ -7,6 +7,12 @@ RSpec.describe Strings::Case::Acronyms do
     expect(acronyms.to_a).to eq([])
   end
 
+  it "doesn't instantiate from the Strings::Case::Acronyms object" do
+    acronyms = described_class.new
+
+    expect(described_class.from(acronyms)).to eq(acronyms)
+  end
+
   it "creates mappings from an array of acronyms" do
     acronyms = described_class.from(%w[HTTP XML JSON])
 
