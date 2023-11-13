@@ -12,6 +12,7 @@ group :test do
     gem "activesupport", "~> 7.1.2"
     gem "coveralls_reborn", "~> 0.28.0"
     gem "rubocop-performance", "~> 1.19"
+    gem "rubocop-rake", "~> 0.6.0"
     gem "simplecov", "~> 0.22.0"
   end
 end
