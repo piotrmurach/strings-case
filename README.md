@@ -20,12 +20,19 @@
 
 **Strings::Case** provides string case conversions for [Strings](https://github.com/piotrmurach/strings) utilities.
 
+## Features
+
+* No monkey-patching String class
+* Convert strings to many common cases
+* Support for Unicode characters
+* Preserve acronyms
+
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'strings-case'
+gem "strings-case"
 ```
 
 And then execute:
@@ -35,15 +42,6 @@ And then execute:
 Or install it yourself as:
 
     $ gem install strings-case
-
-
-## Features
-
-* No monkey-patching String class
-* Converts any string to specified case
-* Supports Unicode characters
-* Provides many common case transformations
-* Allows to preserve casing of acronyms
 
 ## Contents
 
