@@ -1,6 +1,7 @@
 require:
   - rubocop-performance
   - rubocop-rake
+  - rubocop-rspec
 
 AllCops:
   NewCops: enable
@@ -52,6 +53,15 @@ Metrics/PerceivedComplexity:
 Naming/FileName:
   Exclude:
     - "lib/strings-case.rb"
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/FilePath:
+  Enabled: false
+
+RSpec/SpecFilePathFormat:
+  Enabled: false
 
 Style/BlockDelimiters:
   AllowedMethods:
