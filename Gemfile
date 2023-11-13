@@ -11,6 +11,7 @@ group :test do
   if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("2.7.0")
     gem "activesupport", "~> 7.1.2"
     gem "coveralls_reborn", "~> 0.28.0"
+    gem "rubocop-performance", "~> 1.19"
     gem "simplecov", "~> 0.22.0"
   end
 end
