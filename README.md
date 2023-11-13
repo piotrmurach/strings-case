@@ -20,22 +20,6 @@
 
 **Strings::Case** provides string case conversions for [Strings](https://github.com/piotrmurach/strings) utilities.
 
-## Motivation
-
-Popular solutions that deal with transforming string cases work well in simple cases.(Sorry ;-) With more complex strings you may get unexpected results:
-
-```ruby
-ActiveSupport::Inflector.underscore("supports IPv6 on iOS 14.4?")
-# => "supports i_pv6 on i_os 14.4?"
-```
-
-In contrast, `Strings::Case` aims to be able to transform any string to expected case:
-
-```ruby
-Strings::Case.snakecase("supports IPv6 on iOS 14.4?")
-# => "supports_i_pv6_on_i_os_14_4"
-```
-
 ## Installation
 
 Add this line to your application's Gemfile:
