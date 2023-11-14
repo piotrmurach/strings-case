@@ -111,17 +111,17 @@ strings.snakecase("ЗдравствуйтеПривет")
 
 Here is a quick summary of available transformations:
 
-| Case Type | Result |
-| --------- | ------- |
-| ```Strings::Case.camelcase("foo bar baz")``` | `"fooBarBaz"` |
-| ```Strings::Case.constcase("foo bar baz")``` | `"FOO_BAR_BAZ"` |
-| ```Strings::Case.headercase("foo bar baz")``` | `"Foo-Bar-Baz"` |
-| ```Strings::Case.kebabcase("foo bar baz")``` | `"foo-bar-baz"` |
-| ```Strings::Case.pascalcase("foo bar baz")``` | `"FooBarBaz"` |
-| ```Strings::Case.pathcase("foo bar baz")``` | `"foo/bar/baz"` |
-| ```Strings::Case.sentencecase("foo bar baz")``` | `"Foo bar baz"` |
-| ```Strings::Case.snakecase("foo bar baz")``` | `"foo_bar_baz"` |
-| ```Strings::Case.titlecase("foo bar baz")``` | `"Foo Bar Baz"` |
+| Case Type                     | Result          |
+| ----------------------------- | --------------- |
+| `camelcase("foo bar baz")`    | `"fooBarBaz"`   |
+| `constcase("foo bar baz")`    | `"FOO_BAR_BAZ"` |
+| `headercase("foo bar baz")`   | `"Foo-Bar-Baz"` |
+| `kebabcase("foo bar baz")`    | `"foo-bar-baz"` |
+| `pascalcase("foo bar baz")`   | `"FooBarBaz"`   |
+| `pathcase("foo bar baz")`     | `"foo/bar/baz"` |
+| `sentencecase("foo bar baz")` | `"Foo bar baz"` |
+| `snakecase("foo bar baz")`    | `"foo_bar_baz"` |
+| `titlecase("foo bar baz")`    | `"Foo Bar Baz"` |
 
 ## 2. API
 
