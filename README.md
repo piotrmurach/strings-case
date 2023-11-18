@@ -18,7 +18,8 @@
 
 > Convert strings to different cases.
 
-**Strings::Case** provides string case conversions for [Strings](https://github.com/piotrmurach/strings) utilities.
+**Strings::Case** provides string case conversions for
+[Strings](https://github.com/piotrmurach/strings) utilities.
 
 ## Features
 
@@ -61,55 +62,66 @@ Or install it yourself as:
 
 ## 1. Usage
 
-The `Strings::Case` is a class with methods for converting between string cases:
+Start by creating an instance of the `Strings::Case` class:
 
-``` ruby
+```ruby
 strings = Strings::Case.new
+```
+
+Then, use one of many case conversion methods, for example,
+the `snakecase` method:
+
+```ruby
 strings.snakecase("FooBarBaz")
 # => "foo_bar_baz"
 ```
 
-As a convenience, you can call methods directly on a class:
+As a convenience, case conversion methods are also available on class:
 
 ```ruby
 Strings::Case.snakecase("FooBarBaz")
 # => "foo_bar_baz"
-````
+```
 
-It will transform any string into expected case:
+Case conversion methods will transform any string into an expected case:
 
 ```ruby
 strings.snakecase("supports IPv6 on iOS?")
 # => "supports_i_pv6_on_i_os"
 ```
 
-You can also specify acronyms as a method parameter:
-
-```ruby
-strings.snakecase("supports IPv6 on iOS?", acronyms: %w[IPv6 iOS])
-# => "supports_ipv6_on_ios"
-```
-
-To make acronyms available for all conversions, configure them once on an instance:
-
-```ruby
-strings.configure do |config|
-  config.acronym "IPv6"
-  config.acronym "iOS"
-end
-
-strings.snakecase("supports IPv6 on iOS?")
-# => "supports_ipv6_on_ios"
-```
-
-It also supports converting Unicode characters:
+The methods also support converting Unicode characters:
 
 ```ruby
 strings.snakecase("ЗдравствуйтеПривет")
 # => "здравствуйте_привет"
 ```
 
-Here is a quick summary of available transformations:
+To preserve acronyms for all case conversions, configure them once
+on an instance:
+
+```ruby
+strings.configure do |config|
+  config.acronym "IPv6"
+  config.acronym "iOS"
+end
+```
+
+This will preserve acronyms for any case conversion method:
+
+```ruby
+strings.snakecase("supports IPv6 on iOS?")
+# => "supports_ipv6_on_ios"
+```
+
+Or, use the `acronyms` keyword in a case conversion method:
+
+```ruby
+strings.snakecase("supports IPv6 on iOS?", acronyms: %w[IPv6 iOS])
+# => "supports_ipv6_on_ios"
+```
+
+Here is a quick summary of available case conversions:
 
 | Case Type                     | Result          |
 | ----------------------------- | --------------- |
@@ -127,8 +139,8 @@ Here is a quick summary of available transformations:
 
 ### 2.1 configure
 
-To add acronyms for all case conversions, configure them at initialization
-with the `acronyms` keyword.
+Use the `acronyms` keyword at initialization to add acronyms for all
+case conversions.
 
 For example, to add `HTTP` and `XML` acronyms:
 
@@ -136,8 +148,8 @@ For example, to add `HTTP` and `XML` acronyms:
 strings = Strings::Case.new(acronyms: %w[HTTP XML])
 ```
 
-After initialization, use the `configure` to add acronyms with
-the `acronym` method:
+After initialization, use the `configure` method to add acronyms
+in a block with the `acronym` method:
 
 ```ruby
 strings.configure do |config|
@@ -148,7 +160,7 @@ strings.configure do |config|
 end
 ```
 
-Alternatively, use the `configure` with the `acronyms` keyword:
+Or, use the `configure` method with the `acronyms` keyword:
 
 ```ruby
 strings.configure(acronyms: %w[HTTP XML])
@@ -163,153 +175,168 @@ strings.camelcase("xml_http_request")
 
 ### 2.2 camelcase
 
-To convert a string into a camel case, that is, a case with all the words capitilized apart from the first one and compouned together without any space use `camelcase` method. For example:
+Use the `camelcase` method to convert a string into a camel case. It will
+lowercase first and capitalise all remaining words, joining them by
+removing any space. For example:
 
 ```ruby
-Strings::Case.camelcase("HTTP Response Code")
+strings.camelcase("HTTP Response Code")
 # => "httpResponseCode"
 ```
 
-To preserve the acronyms use the `:acronyms` option:
+Use the `acronyms` keyword to preserve acronyms:
 
 ```ruby
-Strings::Case.camelcase("HTTP Response Code", acronyms: ["HTTP"])
+strings.camelcase("HTTP Response Code", acronyms: ["HTTP"])
 # => "HTTPResponseCode"
 ```
 
 ### 2.3 constcase
 
-To convert a string into a constant case, that is, a case with all the words uppercased and separated by underscore character use `constcase`. For example:
+Use the `constcase` method to convert a string into a constant case. It will
+uppercase all words and separate them with an underscore `_`. For example:
 
 ```ruby
-Strings::Case.constcase("HTTP Response Code")
+strings.constcase("HTTP Response Code")
 # => "HTTP_RESPONSE_CODE"
 ```
 
 ### 2.4 headercase
 
-To covert a string into a header case, that is, a case with all the words capitalized and separated by a hypen use `headercase`. For example:
+Use the `headercase` method to convert a string into a header case. It will
+capitalise all words and separate them with a hyphen `-`. For example:
 
 ```ruby
-Strings::Case.headercase("HTTP Response Code")
+strings.headercase("HTTP Response Code")
 # => "Http-Response-Code"
 ```
 
-To preserve the acronyms use the `:acronyms` option:
+Use the `acronyms` keyword to preserve acronyms:
 
 ```ruby
-Strings::Case.headercase("HTTP Response Code", acronyms: ["HTTP"])
+strings.headercase("HTTP Response Code", acronyms: ["HTTP"])
 # => "HTTP-Response-Code"
 ```
 ### 2.5 kebabcase | dashcase
 
-To convert a string into a kebab case, that is, a case with all the words lowercased and separted by a dash, like a words kebabab on a skewer, use `kebabcase` or `dashcase` methods. For example:
+Use the `kebabcase` or `dashcase` method to convert a string into a kebab case.
+It will lowercase all words and separate them with a dash `-` like a words
+kebab on a skewer. For example:
 
 ```ruby
-Strings::Case.kebabcase("HTTP Response Code")
+strings.kebabcase("HTTP Response Code")
 # => "http-response-code"
 ```
 
-To preserve the acronyms use the `:acronyms` option:
+Use the `acronyms` keyword to preserve acronyms:
 
 ```ruby
-Strings::Case.dashcase("HTTP Response Code", acronyms: ["HTTP"])
-
-expect(dashed).to eq("HTTP-response-code")
+strings.dashcase("HTTP Response Code", acronyms: ["HTTP"])
+# => "HTTP-response-code"
 ```
 
 ### 2.6 pascalcase
 
-To convert a string into a pascal case, that is, a case with all the words capitilized and compounded together without a space, use `pascalcase` method. For example:
+Use the `pascalcase` method to convert a string into a Pascal case. It will
+capitalise all words and join them by removing any space. For example:
 
 ```ruby
-Strings::Case.pascalcase("HTTP Response Code")
+strings.pascalcase("HTTP Response Code")
 # => "HttpResponseCode"
 ```
 
-To preserve the acronyms use the `:acronyms` option:
+Use the `acronyms` keyword to preserve acronyms:
 
 ```ruby
-Strings::Case.pascalcase("HTTP Response Code")
+strings.pascalcase("HTTP Response Code")
 # => "HTTPResponseCode"
 ```
 
 ### 2.7 pathcase
 
-To convert a string into a file path use `pathcase`:
+Use the `pathcase` to convert a string into a path case. It will lowercase
+all words and join them with a forward slash `/`. For example:
 
 ```ruby
-Strings::Case.pathcase("HTTP Response Code")
+strings.pathcase("HTTP Response Code")
 # => "http/response/code"
-````
+```
 
-To preserve the acronyms use the `:acronyms` option:
+Use the `acronyms` keyword to preserve acronyms:
 
 ```ruby
-Strings::Case.pathcase("HTTP Response Code", acronyms: ["HTTP"])
+strings.pathcase("HTTP Response Code", acronyms: ["HTTP"])
 # => "HTTP/response/code"
 ```
 
-By default the `/` is used as a path separator. To change this use a `:separator` option. For example, on Windows the file path separator is `\`:
+Use the `separator` keyword to change the default forward slash `/` path
+separator. For example, to use backslash `\` as a path separator:
 
 ```ruby
-Strings::Case.pathcase("HTTP Response Code", separator: "\\")
+strings.pathcase("HTTP Response Code", separator: "\\")
 # => "http\response\code"
 ```
 
-### 2.8 `sentencecase`
+### 2.8 sentencecase
 
-To turn a string into a sentence use `sentencecase`:
+Use the `sentencecase` to convert a string into a sentence case. It will
+capitalise first and lowercase all remaining words, separating them with
+space. For example:
 
 ```ruby
-Strings::Case.sentencecase("HTTP Response Code")
+strings.sentencecase("HTTP Response Code")
 # => "Http response code"
 ```
 
-To preserve the `HTTP` acronym use the `:acronyms` option:
+Use the `acronyms` keyword to preserve acronyms:
 
 ```ruby
-Strings::Case.sentencecase("HTTP Response Code", acronyms: ["HTTP"])
+strings.sentencecase("HTTP Response Code", acronyms: ["HTTP"])
 # => "HTTP response code"
 ```
 
-### 2.9 `snakecase` | `underscore`
+### 2.9 snakecase | underscore
 
-To convert a string into a snake case by lowercasing all the characters and separating them with an `_` use `snakecase` or `underscore` methods. For example:
+Use the `snakecase` or `underscore` method to convert a string into
+a snake case. It will lowercase all words and separate them with
+an underscore `_`. For example:
 
 ```ruby
-Strings::Case.snakecase("HTTP Response Code")
+strings.snakecase("HTTP Response Code")
 # => "http_response_code"
 ```
 
-To preserve acronyms in your string use the `:acronyms` option. For example:
+Use the `acronyms` keyword to preserve acronyms:
 
 ```ruby
-Strings::Case.snakecase("HTTP Response Code", acronyms: ["HTTP"])
+strings.underscore("HTTP Response Code", acronyms: ["HTTP"])
 # => "HTTP_response_code"
 ```
 
-### 2.10 `titlecase`
+### 2.10 titlecase
 
-To convert a string into a space delimited words that have their first letter capitalized use `titlecase`. For example:
+Use `titlecase` to convert a string into a title case. It will capitalise all
+words and separate them with space. For example:
 
 ```ruby
-Strings::Case.titlecase("HTTPResponseCode")
+strings.titlecase("HTTPResponseCode")
 # => "Http Response Code"
 ```
 
-To preserve the `HTTP` acronym use the `:acronyms` option:
+Use the `acronyms` keyword to preserve acronyms:
 
 ```ruby
-Strings::Case.titlecase("HTTP response code", acronyms: ["HTTP"])
+strings.titlecase("HTTP response code", acronyms: ["HTTP"])
 # => "HTTP Response Code"
 ```
 
 ## 3. Extending String class
 
-Though it is highly discouraged to pollute core Ruby classes, you can add the required methods to `String` class by using refinements.
+Polluting core Ruby classes globally may have unintended consequences.
+Instead, consider adding the required methods to the `String` class
+using refinements.
 
-For example, if you wish to only extend strings with `snakecase` method do:
+For example, to extend the `String` class with only the `snakecase` method:
 
 ```ruby
 module MyStringExt
@@ -321,7 +348,8 @@ module MyStringExt
 end
 ```
 
-Then `snakecase` method will be available for any strings where refinement is applied:
+Then using refinement will make the `snakecase` method available
+for any string:
 
 ```ruby
 using MyStringExt
@@ -330,32 +358,51 @@ using MyStringExt
 # => "foo_bar_baz"
 ```
 
-Alternatively, to include all the **Strings::Case** methods, load extensions
-in the following way:
+Load `Strings::Case::Extensions` refinement to extend the `String` class
+with all case conversion methods:
 
 ```ruby
 require "strings/case/extensions"
 
 using Strings::Case::Extensions
+
+"foo bar baz".camelcase
+# => "fooBarBaz"
+
+"foo bar baz".snakecase
+# => "foo_bar_baz"
 ```
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies.
+Then, run `rake spec` to run the tests. You can also run `bin/console`
+for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`.
+To release a new version, update the version number in `version.rb`, and
+then run `bundle exec rake release`, which will create a git tag for
+the version, push git commits and tags, and push the `.gem` file to
+[rubygems.org](https://rubygems.org).
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/piotrmurach/strings-case. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at
+https://github.com/piotrmurach/strings-case. This project is intended to be
+a safe, welcoming space for collaboration, and contributors are expected
+to adhere to the [Contributor Covenant](http://contributor-covenant.org)
+code of conduct.
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the
+[MIT License](https://opensource.org/licenses/MIT).
 
 ## Code of Conduct
 
-Everyone interacting in the Strings::Case project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/piotrmurach/strings-case/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Strings::Case project’s codebases, issue trackers,
+chat rooms and mailing lists is expected to follow the
+[code of conduct](https://github.com/piotrmurach/strings-case/blob/master/CODE_OF_CONDUCT.md).
 
 ## Copyright
 
