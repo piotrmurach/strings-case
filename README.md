@@ -52,11 +52,11 @@ Or install it yourself as:
   * [2.2 camelcase](#22-camelcase)
   * [2.3 constcase](#23-constcase)
   * [2.4 headercase](#24-headercase)
-  * [2.5 kebabcase | dashcase](#25-kebabcase--dashcase)
+  * [2.5 kebabcase \| dashcase](#25-kebabcase--dashcase)
   * [2.6 pascalcase](#26-pascalcase)
   * [2.7 pathcase](#27-pathcase)
   * [2.8 sentencecase](#28-sentencecase)
-  * [2.9 snakecase | underscore](#29-snakecase--underscore)
+  * [2.9 snakecase \| underscore](#29-snakecase--underscore)
   * [2.10 titlecase](#210-titlecase)
 * [3. Extending String class](#3-extending-string-class)
 
