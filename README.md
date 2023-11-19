@@ -180,15 +180,15 @@ lowercase first and capitalise all remaining words, joining them by
 removing any space. For example:
 
 ```ruby
-strings.camelcase("HTTP Response Code")
-# => "httpResponseCode"
+strings.camelcase("PostgreSQL adapter")
+# => "postgreSqlAdapter"
 ```
 
 Use the `acronyms` keyword to preserve acronyms:
 
 ```ruby
-strings.camelcase("HTTP Response Code", acronyms: ["HTTP"])
-# => "HTTPResponseCode"
+strings.camelcase("PostgreSQL adapter", acronyms: ["PostgreSQL"])
+# => "PostgreSQLAdapter"
 ```
 
 ### 2.3 constcase
@@ -197,8 +197,15 @@ Use the `constcase` method to convert a string into a constant case. It will
 uppercase all words and separate them with an underscore `_`. For example:
 
 ```ruby
-strings.constcase("HTTP Response Code")
-# => "HTTP_RESPONSE_CODE"
+strings.constcase("PostgreSQL adapter")
+# => "POSTGRE_SQL_ADAPTER"
+```
+
+Use the `acronyms` keyword to preserve acronyms:
+
+```ruby
+strings.constcase("PostgreSQL adapter", acronyms: ["PostgreSQL"])
+# => "POSTGRESQL_ADAPTER"
 ```
 
 ### 2.4 headercase
@@ -207,16 +214,17 @@ Use the `headercase` method to convert a string into a header case. It will
 capitalise all words and separate them with a hyphen `-`. For example:
 
 ```ruby
-strings.headercase("HTTP Response Code")
-# => "Http-Response-Code"
+strings.headercase("PostgreSQL adapter")
+# => "Postgre-Sql-Adapter"
 ```
 
 Use the `acronyms` keyword to preserve acronyms:
 
 ```ruby
-strings.headercase("HTTP Response Code", acronyms: ["HTTP"])
-# => "HTTP-Response-Code"
+strings.headercase("PostgreSQL adapter", acronyms: ["PostgreSQL"])
+# => "PostgreSQL-Adapter"
 ```
+
 ### 2.5 kebabcase | dashcase
 
 Use the `kebabcase` or `dashcase` method to convert a string into a kebab case.
@@ -224,15 +232,15 @@ It will lowercase all words and separate them with a dash `-` like a words
 kebab on a skewer. For example:
 
 ```ruby
-strings.kebabcase("HTTP Response Code")
-# => "http-response-code"
+strings.kebabcase("PostgreSQL adapter")
+# => "postgre-sql-adapter"
 ```
 
 Use the `acronyms` keyword to preserve acronyms:
 
 ```ruby
-strings.dashcase("HTTP Response Code", acronyms: ["HTTP"])
-# => "HTTP-response-code"
+strings.dashcase("PostgreSQL adapter", acronyms: ["PostgreSQL"])
+# => "postgresql-adapter"
 ```
 
 ### 2.6 pascalcase
@@ -241,15 +249,15 @@ Use the `pascalcase` method to convert a string into a Pascal case. It will
 capitalise all words and join them by removing any space. For example:
 
 ```ruby
-strings.pascalcase("HTTP Response Code")
-# => "HttpResponseCode"
+strings.pascalcase("PostgreSQL adapter")
+# => "PostgreSqlAdapter"
 ```
 
 Use the `acronyms` keyword to preserve acronyms:
 
 ```ruby
-strings.pascalcase("HTTP Response Code")
-# => "HTTPResponseCode"
+strings.pascalcase("PostgreSQL adapter", acronyms: ["PostgreSQL"])
+# => "PostgreSQLAdapter"
 ```
 
 ### 2.7 pathcase
@@ -258,23 +266,23 @@ Use the `pathcase` to convert a string into a path case. It will lowercase
 all words and join them with a forward slash `/`. For example:
 
 ```ruby
-strings.pathcase("HTTP Response Code")
-# => "http/response/code"
+strings.pathcase("PostgreSQL adapter")
+# => "postgre/sql/adapter"
 ```
 
 Use the `acronyms` keyword to preserve acronyms:
 
 ```ruby
-strings.pathcase("HTTP Response Code", acronyms: ["HTTP"])
-# => "HTTP/response/code"
+strings.pathcase("PostgreSQL adapter", acronyms: ["PostgreSQL"])
+# => "postgresql/adapter"
 ```
 
 Use the `separator` keyword to change the default forward slash `/` path
 separator. For example, to use backslash `\` as a path separator:
 
 ```ruby
-strings.pathcase("HTTP Response Code", separator: "\\")
-# => "http\response\code"
+strings.pathcase("PostgreSQL adapter", separator: "\\")
+# => "postgre\\sql\\adapter"
 ```
 
 ### 2.8 sentencecase
@@ -284,15 +292,15 @@ capitalise first and lowercase all remaining words, separating them with
 space. For example:
 
 ```ruby
-strings.sentencecase("HTTP Response Code")
-# => "Http response code"
+strings.sentencecase("PostgreSQL adapter")
+# => "Postgre sql adapter"
 ```
 
 Use the `acronyms` keyword to preserve acronyms:
 
 ```ruby
-strings.sentencecase("HTTP Response Code", acronyms: ["HTTP"])
-# => "HTTP response code"
+strings.sentencecase("PostgreSQL adapter", acronyms: ["PostgreSQL"])
+# => "PostgreSQL adapter"
 ```
 
 ### 2.9 snakecase | underscore
@@ -302,15 +310,15 @@ a snake case. It will lowercase all words and separate them with
 an underscore `_`. For example:
 
 ```ruby
-strings.snakecase("HTTP Response Code")
-# => "http_response_code"
+strings.snakecase("PostgreSQL adapter")
+# => "postgre_sql_adapter"
 ```
 
 Use the `acronyms` keyword to preserve acronyms:
 
 ```ruby
-strings.underscore("HTTP Response Code", acronyms: ["HTTP"])
-# => "HTTP_response_code"
+strings.underscore("PostgreSQL adapter", acronyms: ["PostgreSQL"])
+# => "postgresql_adapter"
 ```
 
 ### 2.10 titlecase
@@ -319,15 +327,15 @@ Use `titlecase` to convert a string into a title case. It will capitalise all
 words and separate them with space. For example:
 
 ```ruby
-strings.titlecase("HTTPResponseCode")
-# => "Http Response Code"
+strings.titlecase("PostgreSQL adapter")
+# => "Postgre Sql Adapter"
 ```
 
 Use the `acronyms` keyword to preserve acronyms:
 
 ```ruby
-strings.titlecase("HTTP response code", acronyms: ["HTTP"])
-# => "HTTP Response Code"
+strings.titlecase("PostgreSQL adapter", acronyms: ["PostgreSQL"])
+# => "PostgreSQL Adapter"
 ```
 
 ## 3. Extending String class
