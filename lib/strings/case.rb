@@ -120,19 +120,15 @@ module Strings
 
     # Convert string to camel case
     #
-    # * start with a lowercase character
-    # * every subsequent word has its first character uppercased
-    # * all words are compounded together
-    #
     # @example
     #   camelcase("foo bar baz") # => "fooBarBaz"
     #
     # @param [String] string
-    #   the string to camelcase
+    #   the string to convert to camel case
     # @param [Array<String>] acronyms
     #   the acronyms to use to prevent modifications
     # @param [String] separator
-    #   the separator for linking words, by default none
+    #   the words separator, by default an empty string
     #
     # @return [String]
     #
@@ -151,11 +147,11 @@ module Strings
     #   constantcase("foo bar baz") # => "FOO_BAR_BAZ"
     #
     # @param [String] string
-    #   the string to turn into constant
+    #   the string to convert to constant case
     # @param [Array<String>] acronyms
     #   the acronyms to use to prevent modifications
     # @param [String] separator
-    #   the words separator, by default "_"
+    #   the words separator, by default an underscore "_"
     #
     # @return [String]
     #
@@ -166,17 +162,17 @@ module Strings
     end
     alias constantcase constcase
 
-    # Convert string to an HTTP header
+    # Convert string to header case
     #
     # @example
     #   headercase("foo bar baz") # = "Foo-Bar-Baz"
     #
     # @param [String] string
-    #   the string to turn into header
+    #   the string to convert to header case
     # @param [Array<String>] acronyms
     #   the acronyms to use to prevent modifications
     # @param [String] separator
-    #   the words separator, by default "-"
+    #   the words separator, by default a hyphen "-"
     #
     # @return [String]
     #
@@ -188,19 +184,20 @@ module Strings
       end
     end
 
-    # Convert string to lowercase words linked by hyphens
+    # Convert string to kebab case
     #
     # @example
     #   kebabcase("fooBarBaz") # => "foo-bar-baz"
     #
+    # @example
     #   kebabcase("__FOO_BAR__") # => "foo-bar"
     #
     # @param [String] string
-    #   the string to convert to dashed string
+    #   the string to convert to kebab case
     # @param [Array<String>] acronyms
     #   the acronyms to use to prevent modifications
     # @param [String] separator
-    #   the separator for linking words, by default hyphen
+    #   the words separator, by default a hyphen "-"
     #
     # @return [String]
     #
@@ -211,20 +208,17 @@ module Strings
     end
     alias dashcase kebabcase
 
-    # Convert string to pascal case
-    #
-    # * every word has its first character uppercased
-    # * all words are compounded together
+    # Convert string to Pascal case
     #
     # @example
     #   pascalcase("foo bar baz") # => "FooBarBaz"
     #
     # @param [String] string
-    #   the string to convert to camel case with capital letter
+    #   the string to convert to Pascal case
     # @param [Array<String>] acronyms
     #   the acronyms to use to prevent modifications
     # @param [String] separator
-    #   the separator for linking words, by default none
+    #   the words separator, by default an empty string
     #
     # @return [String]
     #
@@ -237,21 +231,20 @@ module Strings
     end
     alias upper_camelcase pascalcase
 
-    # Convert string to file path case
-    #
-    # By default uses `/` as a path separator.
+    # Convert string to path case
     #
     # @example
     #   pathcase("foo bar baz") # => "foo/bar/baz"
     #
+    # @example
     #   pathcase("FooBarBaz") # => "foo/bar/baz"
     #
     # @param [String] string
-    #   the string to convert to file path
+    #   the string to convert to path case
     # @param [Array<String>] acronyms
     #   the acronyms to use to prevent modifications
     # @param [String] separator
-    #   the separator for linking words, by default `/`
+    #   the words separator, by default a forward slash "/"
     #
     # @return [String]
     #
@@ -267,11 +260,11 @@ module Strings
     #   sentencecase("foo bar baz") # => "Foo bar baz"
     #
     # @param [String] string
-    #   the string to convert to sentence
+    #   the string to convert to sentence case
     # @param [Array<String>] acronyms
     #   the acronyms to use to prevent modifications
     # @param [String] separator
-    #   the separator for linking words, by default a space
+    #   the words separator, by default a space
     #
     # @return [String]
     #
@@ -299,7 +292,7 @@ module Strings
     # @param [Array<String>] acronyms
     #   the acronyms to use to prevent modifications
     # @param [String] separator
-    #   the separator for linking words, by default `_`
+    #   the words separator, by default an underscore "_"
     #
     # @return [String]
     #
@@ -320,7 +313,7 @@ module Strings
     # @param [Array<String>] acronyms
     #   the acronyms to use to prevent modifications
     # @param [String] separator
-    #   the separator for linking words, by default a space
+    #   the words separator, by default a space
     #
     # @return [String]
     #
@@ -341,7 +334,7 @@ module Strings
     # @param [Strings::Case::Acronyms] acronyms
     #   the acronyms to use to parse words
     # @param [String] sep
-    #   the separator for linking words, defaults to `_`
+    #   the words separator, by default an underscore "_"
     #
     # @yield [word, index]
     #
