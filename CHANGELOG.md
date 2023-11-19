@@ -1,6 +1,6 @@
 # Change log
 
-## [v0.4.0] - unreleased
+## [v0.4.0] - 2023-11-19
 
 ### Added
 * Add the ability to configure acronyms on an instance
